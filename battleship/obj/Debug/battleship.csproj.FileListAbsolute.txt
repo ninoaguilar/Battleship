@@ -1,0 +1,2 @@
+c:\users\nino\documents\visual studio 2015\Projects\battleship\battleship\bin\Debug\battleship.exe.config
+C:\Users\Nino\Documents\GitHubVisualStudio\Battleship\battleship\bin\Debug\battleship.exe.config
