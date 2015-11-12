@@ -8,8 +8,11 @@ namespace battleship
 {
     public class ShotObject
     {
-        private Square target;
+        private Square target;  //Square that is being attacked
 
+        /// <summary>
+        /// Default constructor, Unlikely to ever be used
+        /// </summary>
         public ShotObject()
         {
             target = new Square();

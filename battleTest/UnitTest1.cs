@@ -21,14 +21,14 @@ namespace battleTest
         public void TestShotResultObjectDefaultConstructor()
         {
             ShotResultObject shotResultObject = new ShotResultObject();
-            Assert.IsTrue(shotResultObject.getState == State.MISS);
+            Assert.IsTrue(shotResultObject.getState == State.miss);
         }
 
         [TestMethod]
         public void TestShotResultObjectNonDefaultConstructor()
         {
-            ShotResultObject shotResultObject = new ShotResultObject(State.HIT);
-            Assert.IsTrue(shotResultObject.getState == State.HIT);
+            ShotResultObject shotResultObject = new ShotResultObject(State.hit);
+            Assert.IsTrue(shotResultObject.getState == State.hit);
         }
     }
 
@@ -40,13 +40,13 @@ namespace battleTest
         {
             ShotObject shotObject = new ShotObject();
             Square square = new Square();
-            Assert.IsTrue(shotObject.getTarget() == sqare);
+            Assert.IsTrue(shotObject.getTarget() == square);
         }
 
         [TestMethod]
         public void TestShotObjectNonDefaultConstructor()
         {
-            Square square = new Square(3, 4);
+            Square square = new Square();
             ShotObject shotObject = new ShotObject(square);
             Assert.IsTrue(shotObject.getTarget() == square);
         }

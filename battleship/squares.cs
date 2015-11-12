@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace battleship
 {
     public enum State { hit, miss, empty };
-    public class Squares
+    public class Square
     {
         private int xLoc;              // Square x location
         private int yLoc;              // Square y location
@@ -45,7 +45,7 @@ namespace battleship
             return false;
         }
 
-        public Squares()
+        public Square()
         {
             int xLoc = 0;
             int yLoc = 0;

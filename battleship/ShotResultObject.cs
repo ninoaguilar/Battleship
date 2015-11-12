@@ -8,11 +8,13 @@ namespace battleship
 {
     public class ShotResultObject
     {
-        private State state;
-
+        private State state;    //State of the attacked square after the shot was fired
+        /// <summary>
+        /// Default constructor, unlikely to ever be used
+        /// </summary>
         public ShotResultObject()
         {
-            state = State.MISS;
+            state = State.miss;
         }
         public ShotResultObject(State shotResult)
         {
