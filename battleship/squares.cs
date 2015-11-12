@@ -47,9 +47,34 @@ namespace battleship
 
         public Square()
         {
-            int xLoc = 0;
-            int yLoc = 0;
+            xLoc = 0;
+            yLoc = 0;
             squareState = State.empty;
+        }
+
+        public int getXLoc()
+        {
+            return xLoc;
+        }
+        public void setXLoc(int loc)
+        {
+            xLoc = loc;
+        }
+        public int getYLoc()
+        {
+            return yLoc;
+        }
+        public void setYLoc(int loc)
+        {
+            yLoc = loc;
+        }
+        public State getSquareState()
+        {
+            return squareState;
+        }
+        public void setState(State state)
+        {
+            squareState = state;
         }
     }
 

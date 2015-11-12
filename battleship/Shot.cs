@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace battleship
 {
-    public class ShotObject
+    public class Shot
     {
         private Square target;  //Square that is being attacked
 
         /// <summary>
         /// Default constructor, Unlikely to ever be used
         /// </summary>
-        public ShotObject()
+        public Shot()
         {
             target = new Square();
         }
-        public ShotObject(Square square)
+        public Shot(Square square)
         {
             target = square;
         }

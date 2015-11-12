@@ -27,3 +27,10 @@ C:\Users\Karl\Source\Repos\Battleship-1\battleship\obj\Debug\Interop.WMPLib.dll
 C:\Users\Karl\Source\Repos\Battleship-1\battleship\obj\Debug\battleship.csproj.ResolveComReference.cache
 C:\Users\Karl\Source\Repos\Battleship-1\battleship\obj\Debug\battleship.exe
 C:\Users\Karl\Source\Repos\Battleship-1\battleship\obj\Debug\battleship.pdb
+C:\Users\Karl\Source\Repos\Battleship-1\battleship\bin\Debug\battleship.exe
+C:\Users\Karl\Source\Repos\Battleship-1\battleship\bin\Debug\battleship.pdb
+C:\Users\Karl\Source\Repos\Battleship-1\battleship\obj\Debug\battleship.Form1.resources
+C:\Users\Karl\Source\Repos\Battleship-1\battleship\obj\Debug\battleship.Properties.Resources.resources
+C:\Users\Karl\Source\Repos\Battleship-1\battleship\obj\Debug\battleship.csproj.GenerateResource.Cache
+C:\Users\Karl\Source\Repos\Battleship-1\battleship\bin\Debug\battleship.exe.CodeAnalysisLog.xml
+C:\Users\Karl\Source\Repos\Battleship-1\battleship\bin\Debug\battleship.exe.lastcodeanalysissucceeded
