@@ -63,18 +63,16 @@ namespace battleship
         }
 
         /// <summary>
-        /// Check if square object is occupied 
+        /// Checks if square object is occupied 
         /// </summary>
         public bool isOccuppied()
         {
             if (this.getSquareState() != State.empty)
             {
-                Console.WriteLine("Square is occuppied"); // Prints out to screen for testing
-                return true;
+                return true;          //Occupied
             }
-
-            Console.WriteLine("Square is not occuppied"); // Prints out to screen for testing
-            return false;
+            
+            return false;             //Not Occupied
         }
     }
 }
