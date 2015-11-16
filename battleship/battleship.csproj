@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Gameboard.cs" />
     <Compile Include="GameController.cs" />
     <Compile Include="Shot.cs" />
     <Compile Include="ShotResult.cs" />
