@@ -76,7 +76,7 @@ namespace battleTest
             Square square = new Square();
             Assert.IsTrue(square.getXLoc().Equals(0));
             Assert.IsTrue(square.getXLoc().Equals(0));
-            Assert.IsTrue(square.getSquareState().Equals(State.miss));
+            Assert.IsTrue(square.getSquareState().Equals(State.empty));
         }
 
         [TestMethod]
