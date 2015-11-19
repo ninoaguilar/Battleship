@@ -1,8 +1,0 @@
-C:\Users\Karl\Source\Repos\Battleship-1\battleTest\obj\Debug\battleTest.csprojResolveAssemblyReference.cache
-C:\Users\Karl\Source\Repos\Battleship-1\battleTest\bin\Debug\battleTest.dll
-C:\Users\Karl\Source\Repos\Battleship-1\battleTest\bin\Debug\battleTest.pdb
-C:\Users\Karl\Source\Repos\Battleship-1\battleTest\bin\Debug\battleship.exe
-C:\Users\Karl\Source\Repos\Battleship-1\battleTest\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
-C:\Users\Karl\Source\Repos\Battleship-1\battleTest\bin\Debug\battleship.pdb
-C:\Users\Karl\Source\Repos\Battleship-1\battleTest\obj\Debug\battleTest.dll
-C:\Users\Karl\Source\Repos\Battleship-1\battleTest\obj\Debug\battleTest.pdb
