@@ -13,38 +13,6 @@ namespace battleship
         private int yLoc;              // Square y location
         private State squareState;     // Square current state
 
-        /// <summary>
-        /// Fire at current square object location
-        /// </summary>
-        public bool fireHere()
-        {
-            if (isOccuppied())
-            {
-
-                this.squareState = State.hit;
-                Console.WriteLine("Square is hit"); // Prints out to screen for testing
-                return true;
-            }
-
-            Console.WriteLine("Square is not hit"); // Prints out to screen for testing
-            return false;
-        }
-
-        /// <summary>
-        /// Check if square object is occupied 
-        /// </summary>
-        public bool isOccuppied()
-        {
-            if (this.squareState != State.empty)
-            {
-                Console.WriteLine("Square is occuppied"); // Prints out to screen for testing
-                return true;
-            }
-
-            Console.WriteLine("Square is not occuppied"); // Prints out to screen for testing
-            return false;
-        }
-
         public Square()
         {
             xLoc = 0;
@@ -76,13 +44,35 @@ namespace battleship
         {
             squareState = state;
         }
-    }
 
-    public class TestSquare {
-        static void main()
+        /// <summary>
+        /// Fire at current square object location
+        /// </summary>
+        public bool fireHere()
         {
+            //Sets square state to hit
+            this.setState(State.hit);
+
+            if (this.isOccuppied())
+            {
+                //Set ship state to hit?
+                return true;              //hit
+            }
            
+            return false;                 //miss
+        }
+
+        /// <summary>
+        /// Checks if square object is occupied 
+        /// </summary>
+        public bool isOccuppied()
+        {
+            if (this.getSquareState() != State.empty)
+            {
+                return true;          //Occupied
+            }
+            
+            return false;             //Not Occupied
         }
     }
-
 }
