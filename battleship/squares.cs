@@ -20,6 +20,13 @@ namespace battleship
             squareState = State.empty;
         }
 
+        public Square(int x, int y)
+        {
+            xLoc = x;
+            yLoc = y;
+            squareState = State.empty;
+        }
+
         public int getXLoc()
         {
             return xLoc;
@@ -55,7 +62,6 @@ namespace battleship
 
             if (this.isOccuppied())
             {
-                //Set ship state to hit?
                 return true;              //hit
             }
            
