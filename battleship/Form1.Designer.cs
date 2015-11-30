@@ -1,4 +1,7 @@
-﻿namespace battleship
+﻿using System.Collections.Generic;
+using System.Windows.Forms;
+
+namespace battleship
 {
     partial class Form1
     {
@@ -690,6 +693,7 @@
             this.ship2PictureBox.Size = new System.Drawing.Size(74, 35);
             this.ship2PictureBox.TabIndex = 295;
             this.ship2PictureBox.TabStop = false;
+            this.ship2PictureBox.MouseClick += new MouseEventHandler((o, a) => shipSelect(this.ship2PictureBox));
             // 
             // ship3aPictureBox
             // 
@@ -701,6 +705,7 @@
             this.ship3aPictureBox.Size = new System.Drawing.Size(111, 35);
             this.ship3aPictureBox.TabIndex = 296;
             this.ship3aPictureBox.TabStop = false;
+            this.ship3aPictureBox.MouseClick += new MouseEventHandler((o, a) => shipSelect(this.ship3aPictureBox));
             // 
             // ship3bPictureBox
             // 
@@ -712,6 +717,7 @@
             this.ship3bPictureBox.Size = new System.Drawing.Size(111, 35);
             this.ship3bPictureBox.TabIndex = 297;
             this.ship3bPictureBox.TabStop = false;
+            this.ship3bPictureBox.MouseClick += new MouseEventHandler((o, a) => shipSelect(this.ship3bPictureBox));
             // 
             // ship4PictureBox
             // 
@@ -723,6 +729,7 @@
             this.ship4PictureBox.Size = new System.Drawing.Size(140, 35);
             this.ship4PictureBox.TabIndex = 298;
             this.ship4PictureBox.TabStop = false;
+            this.ship4PictureBox.MouseClick += new MouseEventHandler((o, a) => shipSelect(this.ship4PictureBox));
             // 
             // ship5PictureBox
             // 
@@ -734,6 +741,7 @@
             this.ship5PictureBox.Size = new System.Drawing.Size(185, 35);
             this.ship5PictureBox.TabIndex = 301;
             this.ship5PictureBox.TabStop = false;
+            this.ship5PictureBox.MouseClick += new MouseEventHandler((o, a) => shipSelect(this.ship5PictureBox));
             // 
             // Form1
             // 
@@ -793,6 +801,14 @@
             this.Controls.Add(this.ship3bPictureBox);
             this.Controls.Add(this.ship3aPictureBox);
             this.Controls.Add(this.ship2PictureBox);
+
+            this.shipPictureBoxes = new List<PictureBox>();
+            this.shipPictureBoxes.Add(this.ship2PictureBox);
+            this.shipPictureBoxes.Add(this.ship3aPictureBox);
+            this.shipPictureBoxes.Add(this.ship3bPictureBox);
+            this.shipPictureBoxes.Add(this.ship4PictureBox);
+            this.shipPictureBoxes.Add(this.ship5PictureBox);
+
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form1";
@@ -863,6 +879,8 @@
         private System.Windows.Forms.PictureBox ship3bPictureBox;
         private System.Windows.Forms.PictureBox ship4PictureBox;
         private System.Windows.Forms.PictureBox ship5PictureBox;
+        private List<PictureBox> shipPictureBoxes;
+        private System.Windows.Forms.PictureBox activeShipPictureBox;
     }
 }
 

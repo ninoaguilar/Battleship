@@ -17,6 +17,7 @@ namespace battleship
         Gameboard Board;
         Button[][] playerGridButtons = new Button[10][];
         Button[][] enemyGridButtons = new Button[10][];
+        GameController controller = new GameController();
         
         WMPLib.WindowsMediaPlayer musicPlayer = new WMPLib.WindowsMediaPlayer();
         public Form1()
@@ -75,6 +76,17 @@ namespace battleship
             buttonGrid[i][j].FlatAppearance.BorderColor = Color.Black;
             buttonGrid[i][j].FlatAppearance.BorderSize = 2;
             buttonGrid[i][j].BackColor = Color.Transparent;
-        }       
+        }
+        
+        public void shipSelect(PictureBox sender)
+        {
+            foreach (PictureBox shipPictureBox in shipPictureBoxes)
+            {
+                shipPictureBox.BackColor = Color.Transparent;
+            }
+            sender.BackColor = Color.White;
+            activeShipPictureBox = sender;
+           
+        }     
     }
 }

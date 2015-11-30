@@ -58,7 +58,7 @@
         {
             foreach (var square in this.position)   //Check if squares are hit.
             {
-                if(square.State.hit)
+                if(square.getSquareState().Equals(State.hit))
                 {
                     this.sink();        //Check if ship is sunk.
                 }
@@ -70,7 +70,7 @@
             bool sink = true;
             foreach (var square in this.Position)
             {
-                    if (!square.State.hit)
+                    if (!square.getSquareState().Equals(State.hit))
                     {
                         sink = false;
                     }
