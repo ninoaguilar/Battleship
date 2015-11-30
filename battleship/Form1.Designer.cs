@@ -83,6 +83,11 @@ namespace battleship
             this.ship3bPictureBox = new System.Windows.Forms.PictureBox();
             this.ship4PictureBox = new System.Windows.Forms.PictureBox();
             this.ship5PictureBox = new System.Windows.Forms.PictureBox();
+            this.ship2PlacedPictureBox = new System.Windows.Forms.PictureBox();
+            this.ship3aPlacedPictureBox = new System.Windows.Forms.PictureBox();
+            this.ship3bPlacedPictureBox = new System.Windows.Forms.PictureBox();
+            this.ship4PlacedPictureBox = new System.Windows.Forms.PictureBox();
+            this.ship5PlacedPictureBox = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.startScreen)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ship2PictureBox)).BeginInit();
@@ -743,6 +748,61 @@ namespace battleship
             this.ship5PictureBox.TabStop = false;
             this.ship5PictureBox.MouseClick += new MouseEventHandler((o, a) => shipSelect(this.ship5PictureBox));
             // 
+            // ship2PlacedPictureBox
+            // 
+            this.ship2PlacedPictureBox.BackColor = System.Drawing.Color.Transparent;
+            this.ship2PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship2PictureBox.BackgroundImage")));
+            this.ship2PlacedPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ship2PlacedPictureBox.Location = new System.Drawing.Point(23, 526);
+            this.ship2PlacedPictureBox.Name = "ship2PlacedPictureBox";
+            this.ship2PlacedPictureBox.Size = new System.Drawing.Size(74, 35);
+            this.ship2PlacedPictureBox.TabIndex = 295;
+            this.ship2PlacedPictureBox.TabStop = false;
+            // 
+            // ship3aPlacedPictureBox
+            // 
+            this.ship3aPlacedPictureBox.BackColor = System.Drawing.Color.Transparent;
+            this.ship3aPlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship3aPictureBox.BackgroundImage")));
+            this.ship3aPlacedPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ship3aPlacedPictureBox.Location = new System.Drawing.Point(132, 526);
+            this.ship3aPlacedPictureBox.Name = "ship3aPlacedPictureBox";
+            this.ship3aPlacedPictureBox.Size = new System.Drawing.Size(111, 35);
+            this.ship3aPlacedPictureBox.TabIndex = 296;
+            this.ship3aPlacedPictureBox.TabStop = false;
+            // 
+            // ship3bPlacedPictureBox
+            // 
+            this.ship3bPlacedPictureBox.BackColor = System.Drawing.Color.Transparent;
+            this.ship3bPlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship3bPictureBox.BackgroundImage")));
+            this.ship3bPlacedPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ship3bPlacedPictureBox.Location = new System.Drawing.Point(23, 579);
+            this.ship3bPlacedPictureBox.Name = "ship3bPlacedPictureBox";
+            this.ship3bPlacedPictureBox.Size = new System.Drawing.Size(111, 35);
+            this.ship3bPlacedPictureBox.TabIndex = 297;
+            this.ship3bPlacedPictureBox.TabStop = false;
+            // 
+            // ship4PlacedPictureBox
+            // 
+            this.ship4PlacedPictureBox.BackColor = System.Drawing.Color.Transparent;
+            this.ship4PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship4PictureBox.BackgroundImage")));
+            this.ship4PlacedPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ship4PlacedPictureBox.Location = new System.Drawing.Point(317, 526);
+            this.ship4PlacedPictureBox.Name = "ship4PlacedPictureBox";
+            this.ship4PlacedPictureBox.Size = new System.Drawing.Size(140, 35);
+            this.ship4PlacedPictureBox.TabIndex = 298;
+            this.ship4PlacedPictureBox.TabStop = false;
+            // 
+            // ship5PlacedPictureBox
+            // 
+            this.ship5PlacedPictureBox.BackColor = System.Drawing.Color.Transparent;
+            this.ship5PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship5PictureBox.BackgroundImage")));
+            this.ship5PlacedPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ship5PlacedPictureBox.Location = new System.Drawing.Point(187, 579);
+            this.ship5PlacedPictureBox.Name = "ship5PlacedPictureBox";
+            this.ship5PlacedPictureBox.Size = new System.Drawing.Size(185, 35);
+            this.ship5PlacedPictureBox.TabIndex = 301;
+            this.ship5PlacedPictureBox.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -801,6 +861,11 @@ namespace battleship
             this.Controls.Add(this.ship3bPictureBox);
             this.Controls.Add(this.ship3aPictureBox);
             this.Controls.Add(this.ship2PictureBox);
+            this.Controls.Add(this.ship5PlacedPictureBox);
+            this.Controls.Add(this.ship4PlacedPictureBox);
+            this.Controls.Add(this.ship3bPlacedPictureBox);
+            this.Controls.Add(this.ship3aPlacedPictureBox);
+            this.Controls.Add(this.ship2PlacedPictureBox);
 
             this.shipPictureBoxes = new List<PictureBox>();
             this.shipPictureBoxes.Add(this.ship2PictureBox);
@@ -881,6 +946,14 @@ namespace battleship
         private System.Windows.Forms.PictureBox ship5PictureBox;
         private List<PictureBox> shipPictureBoxes;
         private System.Windows.Forms.PictureBox activeShipPictureBox;
+        private System.Windows.Forms.PictureBox ship2PlacedPictureBox;
+        private System.Windows.Forms.PictureBox ship3aPlacedPictureBox;
+        private System.Windows.Forms.PictureBox ship3bPlacedPictureBox;
+        private System.Windows.Forms.PictureBox ship4PlacedPictureBox;
+        private System.Windows.Forms.PictureBox ship5PlacedPictureBox;
+        private Ship selectedShip;
+        private bool placeable = true;
+        private bool horizontal = true;
     }
 }
 

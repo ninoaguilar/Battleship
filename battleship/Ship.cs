@@ -1,18 +1,41 @@
 ﻿namespace battleship
 {
-
+    public enum ShipName { patrol, submarine, battleship, destroyer, carrier };
     public class Ship
     {
         private Square[] position;
         private int length;
         private bool isSunk;
+        private bool placed;
+        private ShipName name;
 
-
-        public Ship(int shipLength)
+        public Ship(ShipName name)
         {
+            int shipLength = 0;
+            switch (name)
+            {
+                case ShipName.patrol:
+                    shipLength = 2;
+                    break;
+                case ShipName.submarine:
+                case ShipName.battleship:
+                    shipLength = 3;
+                    break;
+                case ShipName.destroyer:
+                    shipLength = 4;
+                    break;
+                case ShipName.carrier:
+                    shipLength = 5;
+                    break;
+            }
             this.position = new Square[shipLength];
             this.length = shipLength;
             this.isSunk = false;
+            this.name = name;
+            for(int i = 0; i < length; i++)
+            {
+                this.position[i] = new Square();
+            }
         }
 
         public Square[] Position
@@ -25,6 +48,18 @@
             set
             {
                 position = value;
+            }
+        }
+
+        public ShipName Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                name = value;
             }
         }
 
@@ -51,6 +86,19 @@
             set
             {
                 isSunk = value;
+            }
+        }
+
+        public bool Placed
+        {
+            get
+            {
+                return placed;
+            }
+
+            set
+            {
+                placed = value;
             }
         }
 
