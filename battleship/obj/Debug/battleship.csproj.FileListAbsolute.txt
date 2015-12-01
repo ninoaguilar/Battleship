@@ -8,3 +8,4 @@ C:\Users\Karl\Source\Repos\Battleship-1\battleship\obj\Debug\battleship.csproj.G
 C:\Users\Karl\Source\Repos\Battleship-1\battleship\obj\Debug\battleship.exe
 C:\Users\Karl\Source\Repos\Battleship-1\battleship\obj\Debug\battleship.pdb
 C:\Users\Karl\Source\Repos\Battleship-1\battleship\obj\Debug\battleship.Form1.resources
+C:\Users\Karl\Source\Repos\Battleship-1\battleship\obj\Debug\battleship.csprojResolveAssemblyReference.cache

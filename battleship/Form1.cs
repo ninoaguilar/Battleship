@@ -18,7 +18,9 @@ namespace battleship
         GridButton[][] playerGridButtons = new GridButton[10][];
         GridButton[][] enemyGridButtons = new GridButton[10][];
         GameController controller = new GameController();
-        
+
+        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+
         WMPLib.WindowsMediaPlayer musicPlayer = new WMPLib.WindowsMediaPlayer();
         public Form1()
         {
@@ -58,7 +60,9 @@ namespace battleship
                 {
                     setGridButtonAttributes(i, j, horizontalLoc, verticalLoc, ref playerGridButtons);
                     setGridButtonAttributes(i, j, horizontalLoc + 584, verticalLoc, ref enemyGridButtons);
-                    playerGridButtons[i][j].Click += new EventHandler(playerGridButton_Click);
+                    playerGridButtons[i][j].MouseUp += new MouseEventHandler(playerGridButton_Click);
+                    playerGridButtons[i][j].MouseEnter += new EventHandler(playerGridButton_MouseEnter);
+                    playerGridButtons[i][j].MouseLeave += new EventHandler(playerGridButton_MouseLeave);
                     this.Controls.Add(playerGridButtons[i][j]);
                     this.Controls.Add(enemyGridButtons[i][j]);
                     horizontalLoc += 37;
@@ -68,51 +72,242 @@ namespace battleship
             }
         }
 
-        void playerGridButton_Click(Object sender, EventArgs e)
+        void playerGridButton_MouseEnter(Object sender, EventArgs e)
         {
-            var clickedSquare = sender as GridButton;
-            if(selectedShip != null && placeable)
+            var enteredSquare = sender as GridButton;
+            if(selectedShip != null)
             {
-                if (horizontal)
-                {
-                    for(int i = 0; i < selectedShip.Length; i++)
-                    {
-                        selectedShip.Position[i].setXLoc(clickedSquare.XLoc + i);
-                        selectedShip.Position[i].setYLoc(clickedSquare.YLoc);
-                    }
-                }
-                else
+                if(((horizontal && enteredSquare.XLoc + selectedShip.Length <= 10) || (!horizontal && enteredSquare.YLoc + selectedShip.Length <= 10)) && shipFits(enteredSquare.XLoc, enteredSquare.YLoc))
                 {
                     for (int i = 0; i < selectedShip.Length; i++)
                     {
-                        selectedShip.Position[i].setXLoc(clickedSquare.XLoc);
-                        selectedShip.Position[i].setYLoc(clickedSquare.YLoc + i);
+                        if (horizontal)
+                        {
+                            playerGridButtons[enteredSquare.YLoc][enteredSquare.XLoc + i].BackColor = Color.White;
+                        }
+                        else
+                        {
+                            playerGridButtons[enteredSquare.YLoc + i][enteredSquare.XLoc].BackColor = Color.White;
+                        }
+                    }
+                    placeable = true;
+                }
+                else
+                {
+                    enteredSquare.BackColor = Color.Red;
+                    placeable = false;
+                }
+            }
+        }
+
+        bool shipFits(int initXLoc, int initYLoc)
+        {
+            bool fits = true;
+            
+            foreach (Ship ship in controller.getPlayer().getShips())
+            {
+                for (int i = 0; i < ship.Length; i++)
+                {
+                    for (int j = 0; j < selectedShip.Length; j++)
+                    {
+                        if (horizontal)
+                        {
+                            if (ship.Position[i].getXLoc() == initXLoc + j && ship.Position[i].getYLoc() == initYLoc)
+                            {
+                                fits = false;
+                            }
+                        }
+                        else
+                        {
+                            if (ship.Position[i].getXLoc() == initXLoc && ship.Position[i].getYLoc() == initYLoc + j)
+                            {
+                                fits = false;
+                            }
+                        }
                     }
                 }
+            }
+            return fits;
+        }
 
-                switch (selectedShip.Name)
+        void playerGridButton_MouseLeave(Object sender, EventArgs e)
+        {
+            var exitedSquare = sender as GridButton;
+            if (selectedShip != null)
+            {
+                if ((horizontal && exitedSquare.XLoc + selectedShip.Length <= 10) || (!horizontal && exitedSquare.YLoc + selectedShip.Length <= 10))
                 {
-                    case ShipName.patrol:
-                        ship2PlacedPictureBox.Visible = true;
-                        ship2PlacedPictureBox.Location = new Point(49 + selectedShip.Position[0].getXLoc() * 37, 126 + selectedShip.Position[0].getYLoc() * 35);
-                        break;
-                    case ShipName.submarine:
-                        ship3aPlacedPictureBox.Visible = true;
-                        ship3aPlacedPictureBox.Location = new Point(49 + selectedShip.Position[0].getXLoc() * 37, 126 + selectedShip.Position[0].getYLoc() * 35);
-                        break;
-                    case ShipName.battleship:
-                        ship3bPlacedPictureBox.Visible = true;
-                        ship3bPlacedPictureBox.Location = new Point(49 +selectedShip.Position[0].getXLoc() * 37, 126 + selectedShip.Position[0].getYLoc() * 35);
-                        break;
-                    case ShipName.destroyer:
-                        ship4PlacedPictureBox.Visible = true;
-                        ship4PlacedPictureBox.Location = new Point(49 + selectedShip.Position[0].getXLoc() * 37, 126 + selectedShip.Position[0].getYLoc() * 35);
-                        break;
-                    case ShipName.carrier:
-                        ship5PlacedPictureBox.Visible = true;
-                        ship5PlacedPictureBox.Location = new Point(49 +selectedShip.Position[0].getXLoc() * 37, 126 + selectedShip.Position[0].getYLoc() * 35);
-                        break;
+                    for (int i = 0; i < selectedShip.Length; i++)
+                    {
+                        if (horizontal)
+                        {
+                            playerGridButtons[exitedSquare.YLoc][exitedSquare.XLoc + i].BackColor = Color.Transparent;
+                        }
+                        else
+                        {
+                            playerGridButtons[exitedSquare.YLoc + i][exitedSquare.XLoc].BackColor = Color.Transparent;
+                        }
+                    }
+                    placeable = true;
                 }
+                else
+                {
+                    placeable = false;
+                    exitedSquare.BackColor = Color.Transparent;
+                }
+            }
+        }
+
+        void playerGridButton_Click(Object sender, MouseEventArgs e)
+        {
+            var clickedSquare = sender as GridButton;
+            switch (e.Button)
+            {
+                case MouseButtons.Right:
+                    for (int i = 0; i < selectedShip.Length; i++)
+                    {
+                        if (horizontal)
+                        {
+                            if (clickedSquare.XLoc + i < 10)
+                            {
+                                playerGridButtons[clickedSquare.YLoc][clickedSquare.XLoc + i].BackColor = Color.Transparent;
+                            }
+                        }
+                        else
+                        {
+                            if (clickedSquare.YLoc + i < 10)
+                            {
+                                playerGridButtons[clickedSquare.YLoc + i][clickedSquare.XLoc].BackColor = Color.Transparent;
+                            }
+                        }
+                    }
+                    horizontal = !horizontal;
+                    for (int i = 0; i < selectedShip.Length; i++)
+                    {
+                        if (horizontal)
+                        {
+                            if (clickedSquare.XLoc + i < 10)
+                            {
+                                playerGridButtons[clickedSquare.YLoc][clickedSquare.XLoc + i].BackColor = Color.White;
+                                placeable = true;
+                            }
+                            else
+                            {
+                                playerGridButtons[clickedSquare.YLoc][clickedSquare.XLoc].BackColor = Color.Red;
+                                placeable = false;
+                            }
+                        }
+                        else
+                        {
+                            if (clickedSquare.YLoc + i < 10)
+                            {
+                                playerGridButtons[clickedSquare.YLoc + i][clickedSquare.XLoc].BackColor = Color.White;
+                                placeable = true;
+                            }
+                            else
+                            {
+                                playerGridButtons[clickedSquare.YLoc][clickedSquare.XLoc].BackColor = Color.Red;
+                                placeable = false;
+                            }
+                        }
+                    }
+                    break;
+                case MouseButtons.Left:
+                    
+                    if (selectedShip != null && placeable)
+                    {
+                        if (horizontal)
+                        {
+                            for (int i = 0; i < selectedShip.Length; i++)
+                            {
+                                selectedShip.Position[i].setXLoc(clickedSquare.XLoc + i);
+                                selectedShip.Position[i].setYLoc(clickedSquare.YLoc);
+                            }
+                        }
+                        else
+                        {
+                            for (int i = 0; i < selectedShip.Length; i++)
+                            {
+                                selectedShip.Position[i].setXLoc(clickedSquare.XLoc);
+                                selectedShip.Position[i].setYLoc(clickedSquare.YLoc + i);
+                            }
+                        }
+
+                        switch (selectedShip.Name)
+                        {
+                            case ShipName.patrol:
+                                ship2PlacedPictureBox.Visible = true;
+                                ship2PlacedPictureBox.Location = new Point(49 + selectedShip.Position[0].getXLoc() * 37, 126 + selectedShip.Position[0].getYLoc() * 35);
+                                if (horizontal)
+                                {
+                                    ship2PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship2PictureBox.BackgroundImage")));
+                                    ship2PlacedPictureBox.Size = new System.Drawing.Size(74, 35);
+                                }
+                                else
+                                {
+                                    ship2PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship2vertPictureBox.BackgroundImage")));
+                                    ship2PlacedPictureBox.Size = new System.Drawing.Size(35, 74);
+                                }
+                                break;
+                            case ShipName.submarine:
+                                ship3aPlacedPictureBox.Visible = true;
+                                ship3aPlacedPictureBox.Location = new Point(49 + selectedShip.Position[0].getXLoc() * 37, 126 + selectedShip.Position[0].getYLoc() * 35);
+                                if (horizontal)
+                                {
+                                    ship3aPlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship3aPictureBox.BackgroundImage")));
+                                    ship3aPlacedPictureBox.Size = new System.Drawing.Size(111, 35);
+                                }
+                                else
+                                {
+                                    ship3aPlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship3avertPictureBox.BackgroundImage")));
+                                    ship3aPlacedPictureBox.Size = new System.Drawing.Size(35, 111);
+                                }
+                                break;
+                            case ShipName.battleship:
+                                ship3bPlacedPictureBox.Visible = true;
+                                ship3bPlacedPictureBox.Location = new Point(49 + selectedShip.Position[0].getXLoc() * 37, 126 + selectedShip.Position[0].getYLoc() * 35);
+                                if (horizontal)
+                                {
+                                    ship3bPlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship3bPictureBox.BackgroundImage")));
+                                    ship3bPlacedPictureBox.Size = new System.Drawing.Size(111, 35);
+                                }
+                                else
+                                {
+                                    ship3bPlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship3bvertPictureBox.BackgroundImage")));
+                                    ship3bPlacedPictureBox.Size = new System.Drawing.Size(35, 111);
+                                }
+                                break;
+                            case ShipName.destroyer:
+                                ship4PlacedPictureBox.Visible = true;
+                                ship4PlacedPictureBox.Location = new Point(49 + selectedShip.Position[0].getXLoc() * 37, 126 + selectedShip.Position[0].getYLoc() * 35);
+                                if (horizontal)
+                                {
+                                    ship4PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship4PictureBox.BackgroundImage")));
+                                    ship4PlacedPictureBox.Size = new System.Drawing.Size(140, 35);
+                                }
+                                else
+                                {
+                                    ship4PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship4vertPictureBox.BackgroundImage")));
+                                    ship4PlacedPictureBox.Size = new System.Drawing.Size(35, 140);
+                                }
+                                break;
+                            case ShipName.carrier:
+                                ship5PlacedPictureBox.Visible = true;
+                                ship5PlacedPictureBox.Location = new Point(49 + selectedShip.Position[0].getXLoc() * 37, 126 + selectedShip.Position[0].getYLoc() * 35);
+                                if (horizontal)
+                                {
+                                    ship5PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship5PictureBox.BackgroundImage")));
+                                    ship5PlacedPictureBox.Size = new System.Drawing.Size(185, 35);
+                                }
+                                else
+                                {
+                                    ship5PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship5vertPictureBox.BackgroundImage")));
+                                    ship5PlacedPictureBox.Size = new System.Drawing.Size(35, 185);
+                                }
+                                break;
+                        }
+                    }
+                    break;
             }
         }
 
