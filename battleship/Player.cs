@@ -82,7 +82,10 @@
 
         public bool shoot(Square shotSquare) //Take a square from Form, evaluate if square is legal, create shot object, send/receive over network.
         {
-            if(shotSquare.getSquareState().Equals(State.empty))
+            // if(shotSquare.State.empty)
+            // ^^ Getting an error
+            // This might work better - Nino
+            if(shotSquare.getSquareState() == State.empty)
             {
                 Shot newShot = new Shot(shotSquare);
                 //sendShot(newShot);
