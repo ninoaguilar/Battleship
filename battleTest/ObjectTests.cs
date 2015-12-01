@@ -82,6 +82,19 @@ namespace battleTest
         [TestMethod]
         public void TestSquareNonDefaultConstructor()
         {
+            Random r = new Random();
+            int n = r.Next(-1, 100);
+            int m = r.Next(-1, 100);
+
+            Square square = new Square(n, m);
+            Assert.IsTrue(square.getXLoc().Equals(n));
+            Assert.IsTrue(square.getYLoc().Equals(m));
+            Assert.IsTrue(square.getSquareState().Equals(State.empty));
+        }
+        
+        [TestMethod]
+        public void TestSquareGetterAndSetter()
+        {
             Square square = new Square();
             Random r = new Random();
             int n = r.Next(-1, 100);
@@ -93,9 +106,8 @@ namespace battleTest
             Assert.IsTrue(square.getXLoc().Equals(n));
             Assert.IsTrue(square.getYLoc().Equals(m));
             Assert.IsTrue(square.getSquareState().Equals(State.hit));
-
         }
-        
+
         [TestMethod]
         public void TestSquareIsOccuppied()
         {
