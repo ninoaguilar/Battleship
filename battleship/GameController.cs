@@ -10,11 +10,13 @@ namespace battleship
     {
         private int playerTurn;
         private bool gameOver;
+        private Player player;
 
         public GameController()
         {
             playerTurn = 1;
             gameOver = false;
+            player = new Player();
         }
         public GameController(int p)
         {
@@ -32,6 +34,14 @@ namespace battleship
         public bool isGameOver()
         {
             return gameOver;
+        }
+        public Player getPlayer()
+        {
+            return player;
+        }
+        public void setPlayer(Player newPlayer)
+        {
+            player = newPlayer;
         }
         public void passTurn()
         {
