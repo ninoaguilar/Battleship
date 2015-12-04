@@ -46,7 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AILogic.cs" />
+    <Compile Include="AIPlayer.cs" />
     <Compile Include="Gameboard.cs" />
     <Compile Include="GameController.cs" />
     <Compile Include="Player.cs" />

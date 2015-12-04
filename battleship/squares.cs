@@ -35,6 +35,7 @@ namespace battleship
         {
             xLoc = loc;
         }
+        
         public int getYLoc()
         {
             return yLoc;
