@@ -22,7 +22,27 @@ namespace battleship
 
         public void placeShips()
         {
-            //Need ship placement class
+            Ship battleship = new Ship(ShipName.battleship);
+            Ship carrier = new Ship(ShipName.carrier);
+            Ship destroyer = new Ship(ShipName.destroyer);
+            Ship patrol = new Ship(ShipName.patrol);
+            Ship submarine = new Ship(ShipName.submarine);
+
+            for (int i = 0; i < 4; i++)
+            {
+                switch (i)
+                {
+                    case 0:
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                        
+                }
+            }
         }
 
         public void shootShip()
@@ -51,10 +71,18 @@ namespace battleship
             attackSquare.setXLoc(tempXLoc);
             attackSquare.setYLoc(tempYloc);
 
+            /// <summary>
+            /// Check if attackSquare shot at an empty square. If shot hits a square that
+            /// has already been attacked guess a different shot. 
+            /// </summary>
             if(!shoot(attackSquare))
             {
                 miss(attackSquare);
             }
+            /// <summary>
+            /// From previous if statement, shoot function was called. attackSquare is
+            /// either hit/miss. If hit save hit location and change bool values.
+            /// </summary>
             else if(attackSquare.getSquareState() == State.hit)
             {
                 shipHit = true;
@@ -62,9 +90,13 @@ namespace battleship
                 hitXLoc = tempXLoc;
                 hitYLoc = tempYloc;
             }
+            /// <summary>
+            /// From previous if statments; attackSquare was a miss.
+            /// </summary>
             else
             {
-
+                //Do nothing; Accept Defeat
+                return;
             }
 
         }

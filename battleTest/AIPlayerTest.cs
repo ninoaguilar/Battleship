@@ -17,6 +17,9 @@ namespace battleTest
         [TestMethod]
         public void GuessShot()
         {
+            Gameboard Board;
+            GridButton[][] enemyGridButtons = new GridButton[10][];
+            GameController controller = new GameController();
 
         }
     }
