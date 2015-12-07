@@ -20,31 +20,6 @@ namespace battleship
             shipSunk = false;
         }
 
-        public void placeShips()
-        {
-            Ship battleship = new Ship(ShipName.battleship);
-            Ship carrier = new Ship(ShipName.carrier);
-            Ship destroyer = new Ship(ShipName.destroyer);
-            Ship patrol = new Ship(ShipName.patrol);
-            Ship submarine = new Ship(ShipName.submarine);
-
-            for (int i = 0; i < 4; i++)
-            {
-                switch (i)
-                {
-                    case 0:
-                        break;
-                    case 1:
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
-                        
-                }
-            }
-        }
-
         public void shootShip()
         {
             Square attackSquare = new Square();
