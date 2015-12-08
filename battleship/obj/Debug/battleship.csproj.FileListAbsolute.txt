@@ -1,0 +1,5 @@
+C:\Users\Karl\Source\Repos\Battleship-1\battleship\bin\Debug\battleship.exe.config
+C:\Users\Karl\Source\Repos\Battleship-1\battleship\obj\Debug\Interop.WMPLib.dll
+C:\Users\Karl\Source\Repos\Battleship-1\battleship\obj\Debug\battleship.csproj.ResolveComReference.cache
+C:\Users\Karl\Source\Repos\Battleship-1\battleship\obj\Debug\battleship.exe
+C:\Users\Karl\Source\Repos\Battleship-1\battleship\obj\Debug\battleship.pdb

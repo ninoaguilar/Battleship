@@ -25,6 +25,7 @@ namespace battleship
         public Form1()
         {
             InitializeComponent();
+            initializeManualComponents();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -42,7 +43,7 @@ namespace battleship
             beginButton.Visible = false;
             musicPlayer.controls.stop();
             formBoards();
-        }        
+        }
 
         public void formBoards()
         {
@@ -75,9 +76,9 @@ namespace battleship
         void playerGridButton_MouseEnter(Object sender, EventArgs e)
         {
             var enteredSquare = sender as GridButton;
-            if(selectedShip != null)
+            if (selectedShip != null)
             {
-                if(((horizontal && enteredSquare.XLoc + selectedShip.Length <= 10) || (!horizontal && enteredSquare.YLoc + selectedShip.Length <= 10)) && shipFits(enteredSquare.XLoc, enteredSquare.YLoc))
+                if (((horizontal && enteredSquare.XLoc + selectedShip.Length <= 10) || (!horizontal && enteredSquare.YLoc + selectedShip.Length <= 10)) && shipFits(enteredSquare.XLoc, enteredSquare.YLoc))
                 {
                     for (int i = 0; i < selectedShip.Length; i++)
                     {
@@ -103,7 +104,7 @@ namespace battleship
         bool shipFits(int initXLoc, int initYLoc)
         {
             bool fits = true;
-            
+
             foreach (Ship ship in controller.getPlayer().getShips())
             {
                 for (int i = 0; i < ship.Length; i++)
@@ -213,7 +214,7 @@ namespace battleship
                     }
                     break;
                 case MouseButtons.Left:
-                    
+
                     if (selectedShip != null && placeable)
                     {
                         if (horizontal)
@@ -246,7 +247,7 @@ namespace battleship
                                 else
                                 {
                                     ship2PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship2vertPictureBox.BackgroundImage")));
-                                    ship2PlacedPictureBox.Size = new System.Drawing.Size(35, 74);
+                                    ship2PlacedPictureBox.Size = new System.Drawing.Size(36, 70);
                                 }
                                 break;
                             case ShipName.submarine:
@@ -260,7 +261,7 @@ namespace battleship
                                 else
                                 {
                                     ship3aPlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship3avertPictureBox.BackgroundImage")));
-                                    ship3aPlacedPictureBox.Size = new System.Drawing.Size(35, 111);
+                                    ship3aPlacedPictureBox.Size = new System.Drawing.Size(36, 104);
                                 }
                                 break;
                             case ShipName.battleship:
@@ -274,7 +275,7 @@ namespace battleship
                                 else
                                 {
                                     ship3bPlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship3bvertPictureBox.BackgroundImage")));
-                                    ship3bPlacedPictureBox.Size = new System.Drawing.Size(35, 111);
+                                    ship3bPlacedPictureBox.Size = new System.Drawing.Size(36, 104);
                                 }
                                 break;
                             case ShipName.destroyer:
@@ -283,12 +284,12 @@ namespace battleship
                                 if (horizontal)
                                 {
                                     ship4PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship4PictureBox.BackgroundImage")));
-                                    ship4PlacedPictureBox.Size = new System.Drawing.Size(140, 35);
+                                    ship4PlacedPictureBox.Size = new System.Drawing.Size(147, 35);
                                 }
                                 else
                                 {
                                     ship4PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship4vertPictureBox.BackgroundImage")));
-                                    ship4PlacedPictureBox.Size = new System.Drawing.Size(35, 140);
+                                    ship4PlacedPictureBox.Size = new System.Drawing.Size(36, 140);
                                 }
                                 break;
                             case ShipName.carrier:
@@ -302,7 +303,7 @@ namespace battleship
                                 else
                                 {
                                     ship5PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship5vertPictureBox.BackgroundImage")));
-                                    ship5PlacedPictureBox.Size = new System.Drawing.Size(35, 185);
+                                    ship5PlacedPictureBox.Size = new System.Drawing.Size(36, 174);
                                 }
                                 break;
                         }
@@ -317,13 +318,13 @@ namespace battleship
             buttonGrid[i][j].Size = new Size(37, 35);
             buttonGrid[i][j].Location = new Point(hLoc, vLoc);
             buttonGrid[i][j].FlatStyle = FlatStyle.Flat;
-            buttonGrid[i][j].FlatAppearance.BorderColor = Color.Black;
-            buttonGrid[i][j].FlatAppearance.BorderSize = 2;
+            buttonGrid[i][j].FlatAppearance.BorderColor = Color.FromArgb(0, 24, 80);
+            buttonGrid[i][j].FlatAppearance.BorderSize = 1;
             buttonGrid[i][j].BackColor = Color.Transparent;
             playerGridButtons[i][j].XLoc = j;
             playerGridButtons[i][j].YLoc = i;
         }
-        
+
         public void shipSelect(PictureBox sender)
         {
             foreach (PictureBox shipPictureBox in shipPictureBoxes)
@@ -352,7 +353,23 @@ namespace battleship
             {
                 selectedShip = controller.getPlayer().getShip(ShipName.carrier);
             }
-        }     
+        }
+
+        public void initializeManualComponents()
+        {
+            this.ship2PictureBox.MouseClick += new MouseEventHandler((o, a) => shipSelect(this.ship2PictureBox));
+            this.ship3aPictureBox.MouseClick += new MouseEventHandler((o, a) => shipSelect(this.ship3aPictureBox));
+            this.ship3bPictureBox.MouseClick += new MouseEventHandler((o, a) => shipSelect(this.ship3bPictureBox));
+            this.ship4PictureBox.MouseClick += new MouseEventHandler((o, a) => shipSelect(this.ship4PictureBox));
+            this.ship5PictureBox.MouseClick += new MouseEventHandler((o, a) => shipSelect(this.ship5PictureBox));
+            this.shipPictureBoxes = new List<PictureBox>();
+            this.shipPictureBoxes.Add(this.ship2PictureBox);
+            this.shipPictureBoxes.Add(this.ship3aPictureBox);
+            this.shipPictureBoxes.Add(this.ship3bPictureBox);
+            this.shipPictureBoxes.Add(this.ship4PictureBox);
+            this.shipPictureBoxes.Add(this.ship5PictureBox);
+        }
+
     }
 
     public partial class GridButton : System.Windows.Forms.Button
