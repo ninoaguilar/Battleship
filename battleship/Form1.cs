@@ -14,7 +14,7 @@ namespace battleship
 {
     public partial class Form1 : Form
     {
-        Gameboard Board;
+        Gameboard Board = new Gameboard();
         GridButton[][] playerGridButtons = new GridButton[10][];
         GridButton[][] enemyGridButtons = new GridButton[10][];
         GameController controller = new GameController();
@@ -396,12 +396,12 @@ namespace battleship
                     {
                         if (horizontal)
                         {
-                            if (clickedSquare.XLoc + i < 10) placeable = true;
+                            if (clickedSquare.XLoc + i < 10 && AIshipFits(clickedSquare.XLoc, clickedSquare.YLoc, selectedShip.Length, computer)) placeable = true;
                             else placeable = false;
                         }
                         else
                         { 
-                            if (clickedSquare.YLoc + i < 10) placeable = true;
+                            if (clickedSquare.YLoc + i < 10 && AIshipFits(clickedSquare.XLoc, clickedSquare.YLoc, selectedShip.Length, computer)) placeable = true;
                             else placeable = false;
                         }
                     }
@@ -414,7 +414,8 @@ namespace battleship
                             {
                                 selectedShip.Position[i].setXLoc(clickedSquare.XLoc + i);
                                 selectedShip.Position[i].setYLoc(clickedSquare.YLoc);
-                                //enemyGridButtons[clickedSquare.YLoc][clickedSquare.XLoc + i].BackColor = Color.White; //To see placment. Comment out
+                                Board.enemyGrid[clickedSquare.YLoc][clickedSquare.XLoc + i].setState(State.occupied);
+                                enemyGridButtons[clickedSquare.YLoc][clickedSquare.XLoc + i].BackColor = Color.White; //To see placment. Comment out
                             }
                         }
                         else
@@ -423,13 +424,14 @@ namespace battleship
                             {
                                 selectedShip.Position[i].setXLoc(clickedSquare.XLoc);
                                 selectedShip.Position[i].setYLoc(clickedSquare.YLoc + i);
-                                //enemyGridButtons[clickedSquare.YLoc + i][clickedSquare.XLoc].BackColor = Color.White; //To see placement. Comment out
+                                Board.enemyGrid[clickedSquare.YLoc + i][clickedSquare.XLoc].setState(State.occupied);
+                                enemyGridButtons[clickedSquare.YLoc + i][clickedSquare.XLoc].BackColor = Color.White; //To see placement. Comment out
                             }
                         }
                     }
                 }
 
-                // Turned on to see ship placment. Delete code for final project
+                // Turned on to see Ships after placement. Delete code for final project
                 switch (selectedShip.Name)
                 {
                     case ShipName.patrol:
@@ -505,8 +507,38 @@ namespace battleship
                 }
             }
         }
-    }
 
+        bool AIshipFits(int initXLoc, int initYLoc, int selectedShipLength, AIPlayer computer)
+        {
+            bool fits = true;
+
+            foreach (Ship ship in computer.getShips())
+            {
+                for (int i = 0; i < ship.Length; i++)
+                {
+                    for (int j = 0; j < selectedShipLength; j++)
+                    {
+                        if (horizontal)
+                        {
+                            if (ship.Position[i].getXLoc() == initXLoc + j && ship.Position[i].getYLoc() == initYLoc)
+                            {
+                                fits = false;
+                            }
+                        }
+                        else
+                        {
+                            if (ship.Position[i].getXLoc() == initXLoc && ship.Position[i].getYLoc() == initYLoc + j)
+                            {
+                                fits = false;
+                            }
+                        }
+                    }
+                }
+            }
+            return fits;
+        }
+
+    }
 
     public partial class GridButton : System.Windows.Forms.Button
     {

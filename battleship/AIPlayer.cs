@@ -6,21 +6,25 @@ using System.Threading.Tasks;
 
 namespace battleship
 {
-    public class AIPlayer : Player
+    public partial class AIPlayer : Player
     {
         private int hitXLoc;
         private int hitYLoc;
         private bool shipHit;
         private bool shipSunk;
+        private bool horizontal;
 
         public AIPlayer() : base()
         {
             this.Name = "Computer";
             shipHit = false;
             shipSunk = false;
+            hitXLoc = 0;
+            hitYLoc = 0;
+           
         }
 
-        public void shootShip()
+        public void attackEnemy()
         {
             Square attackSquare = new Square();
 
@@ -81,6 +85,10 @@ namespace battleship
             Random rand = new Random();
             int guess = rand.Next(1001) % 4;
 
+            /// <summary>
+            /// When up/down/left/right returns false, the guess shot was already attacked.
+            ///  Guess a new shot
+            /// </summary>
             switch (guess)
             {
                 case 0:
@@ -98,16 +106,123 @@ namespace battleship
             }
         }
 
+        // Check if ship being attack has been sunk
+        private bool checkIfSunk(Square attackSquare, bool horizontal)
+        {
+            if (horizontal)
+            {
+                return checkHorizontal(hitXLoc, hitYLoc, attackSquare);
+            }
+
+            return checkVertical(hitXLoc, hitYLoc, attackSquare);
+        }
+
+        /// <summary>
+        /// Check vertical status of ship being attacked.
+        /// A sunken ship will have miss on both ends of the ship 
+        /// If the ship is at the edge the ship will have a miss on the opposite end
+        /// </summary>
+        private bool checkVertical(int x, int y, Square checkSquare)
+        {
+            int sizeOfLargestShip = 5;
+            int tempY = y;
+
+            //Looking for the end of the ship
+            for(int i = 0; i <= sizeOfLargestShip; i++)
+            {
+                tempY -= i;
+                if (tempY < 0)
+                {
+                    tempY = 0;
+                    break;
+                }
+                checkSquare.setXLoc(x);
+                checkSquare.setYLoc(tempY);
+                
+                //If the square being checked is not a hit, it must be the end of the ship
+                if(checkSquare.getSquareState() != State.hit)
+                {
+                    break;
+                }
+            }
+
+            //Starting from the end of the ship and check for a miss on both ends
+            for(int i = 0; i <= sizeOfLargestShip; i++)
+            {
+                checkSquare.setYLoc(tempY + i);
+
+                /// <summary>
+                /// Starts from the end of ship
+                /// If square status is a hit ignore
+                /// If square status is a miss it is the end of the ship
+                /// If square status is a not a hit or miss the ship has not been sunk
+                /// </summary>
+                if (checkSquare.getSquareState() == State.miss)
+                {
+                    return true;
+                }
+                else if (checkSquare.getSquareState() != State.hit)
+                {
+                    return false;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Check horizontal status of ship being attacked.
+        /// A sunken ship will have miss on both ends of the ship 
+        /// If the ship is at the edge the ship will have a miss on the opposite end
+        /// </summary>
+        private bool checkHorizontal(int x, int y, Square checkSquare)
+        {
+            int sizeOfLargestShip = 5;
+            int tempX = x;
+
+            for (int i = 0; i <= sizeOfLargestShip; i++)
+            {
+                tempX -= i;
+                if (tempX < 0)
+                {
+                    tempX = 0;
+                    break;
+                }
+                checkSquare.setXLoc(tempX);
+                checkSquare.setYLoc(y);
+
+                if (checkSquare.getSquareState() != State.hit)
+                {
+                    break;
+                }
+            }
+
+            for (int i = 0; i <= sizeOfLargestShip; i++)
+            {
+                checkSquare.setYLoc(tempX + i);
+                if (checkSquare.getSquareState() == State.miss)
+                {
+                    return true;
+                }
+                else if (checkSquare.getSquareState() != State.hit)
+                {
+                    return false;
+                }
+            }
+
+            return false;
+        }
         private bool up(int x, int y, Square attackSquare)
         {
-            int tempY = y--; //Shift square guess over one to the right
+            horizontal = false;
+            int tempY = y--; //Shift square guess up one
 
             /// <summary>
-            /// Check to see if X value is within the gameboard.
+            /// Check to see if Y value is within the gameboard.
             /// </summary>
-            if (tempY <= 0)
+            if (tempY < 0)
             {
-                //If true, guess to the right of the original location
+                //If true, guess down of the original location
                 return down(x, y, attackSquare);
             }
 
@@ -120,7 +235,12 @@ namespace battleship
             }
             else if (shoot(attackSquare))
             {
-                //if(ship sunk) shipSunk = true; shipHit = false;
+                if(checkIfSunk(attackSquare, horizontal))
+                {
+                    shipSunk = true;
+                    shipHit = false;
+                }
+                
                 return true;
             }
             else
@@ -131,10 +251,11 @@ namespace battleship
 
         private bool down(int x, int y, Square attackSquare)
         {
-            int tempY = y++; //Shift square guess over one to the right
+            horizontal = false;
+            int tempY = y++; //Shift square guess down one
 
             /// <summary>
-            /// Check to see if X value is within the gameboard.
+            /// Check to see if y value is within the gameboard.
             /// </summary>
             if (tempY >= 10)
             {
@@ -145,23 +266,30 @@ namespace battleship
             attackSquare.setXLoc(x);
             attackSquare.setYLoc(tempY);
 
+            //If the square being attacked has already been hit, keep guessing down one
             if (attackSquare.getSquareState() == State.hit)
             {
                 return down(x, tempY, attackSquare);
             }
-            else if (shoot(attackSquare))
+            else if (shoot(attackSquare)) //Attacking a square not yet guessed
             {
-                //if(ship sunk) shipSunk = true; shipHit = false;
+                if (checkIfSunk(attackSquare, horizontal))
+                {
+                    shipSunk = true;
+                    shipHit = false;
+                }
                 return true;
             }
             else
             {
+                //shoot function shot at a square that has already been attacked
                 return false;
             }
         }
 
         private bool right(int x, int y, Square attackSquare)
         {
+            horizontal = true;
             int tempX = x++; //Shift square guess over one to the right
 
             /// <summary>
@@ -182,7 +310,11 @@ namespace battleship
             }
             else if (shoot(attackSquare))
             {
-                //if(ship sunk) shipSunk = true; shipHit = false;
+                if (checkIfSunk(attackSquare, horizontal))
+                {
+                    shipSunk = true;
+                    shipHit = false;
+                }
                 return true;
             }
             else return false;
@@ -190,12 +322,13 @@ namespace battleship
 
         private bool left(int x, int y, Square attackSquare)
         {
+            horizontal = true;
             int tempX = x--; //Shift square guess over one to the right
 
             /// <summary>
             /// Check to see if X value is within the gameboard.
             /// </summary>
-            if (tempX <= 0)
+            if (tempX < 0)
             {
                 //If true guess  to the right of the original location
                 return right(x, y, attackSquare);
@@ -210,7 +343,11 @@ namespace battleship
             }
             else if (shoot(attackSquare))
             {
-                //if(ship sunk) shipSunk = true; shipHit = false;
+                if (checkIfSunk(attackSquare, horizontal))
+                {
+                    shipSunk = true;
+                    shipHit = false;
+                }
                 return true;
             }
             else
