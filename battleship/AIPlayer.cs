@@ -79,7 +79,7 @@ namespace battleship
         public void hit(int x, int y, Square attackSquare)
         {
             Random rand = new Random();
-            int guess = rand.Next(5);
+            int guess = rand.Next(1001) % 4;
 
             switch (guess)
             {

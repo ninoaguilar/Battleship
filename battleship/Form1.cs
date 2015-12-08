@@ -71,6 +71,8 @@ namespace battleship
                 horizontalLoc = 49;
                 verticalLoc += 35;
             }
+
+            singlePlayerMode();
         }
 
         void playerGridButton_MouseEnter(Object sender, EventArgs e)
@@ -370,7 +372,141 @@ namespace battleship
             this.shipPictureBoxes.Add(this.ship5PictureBox);
         }
 
+        public void singlePlayerMode()
+        {
+            Random rand = new Random();
+            AIPlayer computer = new AIPlayer();         
+
+            foreach(Ship selectedShip in computer.getShips())
+            {
+                GridButton clickedSquare = new GridButton();
+
+                placeable = false;
+                while (!placeable)
+                {
+                    int orientation = rand.Next(1001) % 2;
+                    clickedSquare.XLoc = rand.Next(10);
+                    clickedSquare.YLoc = rand.Next(10);
+
+                    //If orientation == 0 rotate; else don't
+                    if (orientation == 0) horizontal = true;
+                    else horizontal = false;
+
+                    for (int i = 0; i < selectedShip.Length; i++)
+                    {
+                        if (horizontal)
+                        {
+                            if (clickedSquare.XLoc + i < 10) placeable = true;
+                            else placeable = false;
+                        }
+                        else
+                        { 
+                            if (clickedSquare.YLoc + i < 10) placeable = true;
+                            else placeable = false;
+                        }
+                    }
+
+                    if (selectedShip != null && placeable)
+                    {
+                        if (horizontal)
+                        {
+                            for (int i = 0; i < selectedShip.Length; i++)
+                            {
+                                selectedShip.Position[i].setXLoc(clickedSquare.XLoc + i);
+                                selectedShip.Position[i].setYLoc(clickedSquare.YLoc);
+                                //enemyGridButtons[clickedSquare.YLoc][clickedSquare.XLoc + i].BackColor = Color.White; //To see placment. Comment out
+                            }
+                        }
+                        else
+                        {
+                            for (int i = 0; i < selectedShip.Length; i++)
+                            {
+                                selectedShip.Position[i].setXLoc(clickedSquare.XLoc);
+                                selectedShip.Position[i].setYLoc(clickedSquare.YLoc + i);
+                                //enemyGridButtons[clickedSquare.YLoc + i][clickedSquare.XLoc].BackColor = Color.White; //To see placement. Comment out
+                            }
+                        }
+                    }
+                }
+
+                // Turned on to see ship placment. Delete code for final project
+                switch (selectedShip.Name)
+                {
+                    case ShipName.patrol:
+                        ship2PlacedPictureBox.Visible = true;
+                        ship2PlacedPictureBox.Location = new Point(634 + selectedShip.Position[0].getXLoc() * 37, 126 + selectedShip.Position[0].getYLoc() * 35);
+                        if (horizontal)
+                        {
+                            ship2PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship2PictureBox.BackgroundImage")));
+                            ship2PlacedPictureBox.Size = new System.Drawing.Size(74, 35);
+                        }
+                        else
+                        {
+                            ship2PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship2vertPictureBox.BackgroundImage")));
+                            ship2PlacedPictureBox.Size = new System.Drawing.Size(36, 70);
+                        }
+                        break;
+                    case ShipName.submarine:
+                        ship3aPlacedPictureBox.Visible = true;
+                        ship3aPlacedPictureBox.Location = new Point(634 + selectedShip.Position[0].getXLoc() * 37, 126 + selectedShip.Position[0].getYLoc() * 35);
+                        if (horizontal)
+                        {
+                            ship3aPlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship3aPictureBox.BackgroundImage")));
+                            ship3aPlacedPictureBox.Size = new System.Drawing.Size(111, 35);
+                        }
+                        else
+                        {
+                            ship3aPlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship3avertPictureBox.BackgroundImage")));
+                            ship3aPlacedPictureBox.Size = new System.Drawing.Size(36, 104);
+                        }
+                        break;
+                    case ShipName.battleship:
+                        ship3bPlacedPictureBox.Visible = true;
+                        ship3bPlacedPictureBox.Location = new Point(634 + selectedShip.Position[0].getXLoc() * 37, 126 + selectedShip.Position[0].getYLoc() * 35);
+                        if (horizontal)
+                        {
+                            ship3bPlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship3bPictureBox.BackgroundImage")));
+                            ship3bPlacedPictureBox.Size = new System.Drawing.Size(111, 35);
+                        }
+                        else
+                        {
+                            ship3bPlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship3bvertPictureBox.BackgroundImage")));
+                            ship3bPlacedPictureBox.Size = new System.Drawing.Size(36, 104);
+                        }
+                        break;
+                    case ShipName.destroyer:
+                        ship4PlacedPictureBox.Visible = true;
+                        ship4PlacedPictureBox.Location = new Point(634 + selectedShip.Position[0].getXLoc() * 37, 126 + selectedShip.Position[0].getYLoc() * 35);
+                        if (horizontal)
+                        {
+                            ship4PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship4PictureBox.BackgroundImage")));
+                            ship4PlacedPictureBox.Size = new System.Drawing.Size(147, 35);
+                        }
+                        else
+                        {
+                            ship4PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship4vertPictureBox.BackgroundImage")));
+                            ship4PlacedPictureBox.Size = new System.Drawing.Size(36, 140);
+                        }
+                        break;
+                    case ShipName.carrier:
+                        ship5PlacedPictureBox.Visible = true;
+                        ship5PlacedPictureBox.Location = new Point(634 + selectedShip.Position[0].getXLoc() * 37, 126 + selectedShip.Position[0].getYLoc() * 35);
+                        if (horizontal)
+                        {
+                            ship5PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship5PictureBox.BackgroundImage")));
+                            ship5PlacedPictureBox.Size = new System.Drawing.Size(185, 35);
+                        }
+                        else
+                        {
+                            ship5PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship5vertPictureBox.BackgroundImage")));
+                            ship5PlacedPictureBox.Size = new System.Drawing.Size(36, 174);
+                        }
+                        break;
+                }
+            }
+        }
     }
+
 
     public partial class GridButton : System.Windows.Forms.Button
     {
@@ -402,4 +538,5 @@ namespace battleship
             }
         }
     }
+
 }
