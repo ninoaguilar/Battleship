@@ -247,7 +247,7 @@ namespace battleship
                                 else
                                 {
                                     ship2PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship2vertPictureBox.BackgroundImage")));
-                                    ship2PlacedPictureBox.Size = new System.Drawing.Size(35, 74);
+                                    ship2PlacedPictureBox.Size = new System.Drawing.Size(36, 70);
                                 }
                                 break;
                             case ShipName.submarine:
@@ -261,7 +261,7 @@ namespace battleship
                                 else
                                 {
                                     ship3aPlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship3avertPictureBox.BackgroundImage")));
-                                    ship3aPlacedPictureBox.Size = new System.Drawing.Size(35, 111);
+                                    ship3aPlacedPictureBox.Size = new System.Drawing.Size(36, 104);
                                 }
                                 break;
                             case ShipName.battleship:
@@ -275,7 +275,7 @@ namespace battleship
                                 else
                                 {
                                     ship3bPlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship3bvertPictureBox.BackgroundImage")));
-                                    ship3bPlacedPictureBox.Size = new System.Drawing.Size(35, 111);
+                                    ship3bPlacedPictureBox.Size = new System.Drawing.Size(36, 104);
                                 }
                                 break;
                             case ShipName.destroyer:
@@ -284,12 +284,12 @@ namespace battleship
                                 if (horizontal)
                                 {
                                     ship4PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship4PictureBox.BackgroundImage")));
-                                    ship4PlacedPictureBox.Size = new System.Drawing.Size(140, 35);
+                                    ship4PlacedPictureBox.Size = new System.Drawing.Size(147, 35);
                                 }
                                 else
                                 {
                                     ship4PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship4vertPictureBox.BackgroundImage")));
-                                    ship4PlacedPictureBox.Size = new System.Drawing.Size(35, 140);
+                                    ship4PlacedPictureBox.Size = new System.Drawing.Size(36, 140);
                                 }
                                 break;
                             case ShipName.carrier:
@@ -303,7 +303,7 @@ namespace battleship
                                 else
                                 {
                                     ship5PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship5vertPictureBox.BackgroundImage")));
-                                    ship5PlacedPictureBox.Size = new System.Drawing.Size(35, 185);
+                                    ship5PlacedPictureBox.Size = new System.Drawing.Size(36, 174);
                                 }
                                 break;
                         }
@@ -318,8 +318,8 @@ namespace battleship
             buttonGrid[i][j].Size = new Size(37, 35);
             buttonGrid[i][j].Location = new Point(hLoc, vLoc);
             buttonGrid[i][j].FlatStyle = FlatStyle.Flat;
-            buttonGrid[i][j].FlatAppearance.BorderColor = Color.Black;
-            buttonGrid[i][j].FlatAppearance.BorderSize = 2;
+            buttonGrid[i][j].FlatAppearance.BorderColor = Color.FromArgb(0, 24, 80);
+            buttonGrid[i][j].FlatAppearance.BorderSize = 1;
             buttonGrid[i][j].BackColor = Color.Transparent;
             playerGridButtons[i][j].XLoc = j;
             playerGridButtons[i][j].YLoc = i;
