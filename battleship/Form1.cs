@@ -25,6 +25,7 @@ namespace battleship
         public Form1()
         {
             InitializeComponent();
+            initializeManualComponents();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -42,7 +43,7 @@ namespace battleship
             beginButton.Visible = false;
             musicPlayer.controls.stop();
             formBoards();
-        }        
+        }
 
         public void formBoards()
         {
@@ -75,9 +76,9 @@ namespace battleship
         void playerGridButton_MouseEnter(Object sender, EventArgs e)
         {
             var enteredSquare = sender as GridButton;
-            if(selectedShip != null)
+            if (selectedShip != null)
             {
-                if(((horizontal && enteredSquare.XLoc + selectedShip.Length <= 10) || (!horizontal && enteredSquare.YLoc + selectedShip.Length <= 10)) && shipFits(enteredSquare.XLoc, enteredSquare.YLoc))
+                if (((horizontal && enteredSquare.XLoc + selectedShip.Length <= 10) || (!horizontal && enteredSquare.YLoc + selectedShip.Length <= 10)) && shipFits(enteredSquare.XLoc, enteredSquare.YLoc))
                 {
                     for (int i = 0; i < selectedShip.Length; i++)
                     {
@@ -103,7 +104,7 @@ namespace battleship
         bool shipFits(int initXLoc, int initYLoc)
         {
             bool fits = true;
-            
+
             foreach (Ship ship in controller.getPlayer().getShips())
             {
                 for (int i = 0; i < ship.Length; i++)
@@ -213,7 +214,7 @@ namespace battleship
                     }
                     break;
                 case MouseButtons.Left:
-                    
+
                     if (selectedShip != null && placeable)
                     {
                         if (horizontal)
@@ -323,7 +324,7 @@ namespace battleship
             playerGridButtons[i][j].XLoc = j;
             playerGridButtons[i][j].YLoc = i;
         }
-        
+
         public void shipSelect(PictureBox sender)
         {
             foreach (PictureBox shipPictureBox in shipPictureBoxes)
@@ -352,7 +353,23 @@ namespace battleship
             {
                 selectedShip = controller.getPlayer().getShip(ShipName.carrier);
             }
-        }     
+        }
+
+        public void initializeManualComponents()
+        {
+            this.ship2PictureBox.MouseClick += new MouseEventHandler((o, a) => shipSelect(this.ship2PictureBox));
+            this.ship3aPictureBox.MouseClick += new MouseEventHandler((o, a) => shipSelect(this.ship3aPictureBox));
+            this.ship3bPictureBox.MouseClick += new MouseEventHandler((o, a) => shipSelect(this.ship3bPictureBox));
+            this.ship4PictureBox.MouseClick += new MouseEventHandler((o, a) => shipSelect(this.ship4PictureBox));
+            this.ship5PictureBox.MouseClick += new MouseEventHandler((o, a) => shipSelect(this.ship5PictureBox));
+            this.shipPictureBoxes = new List<PictureBox>();
+            this.shipPictureBoxes.Add(this.ship2PictureBox);
+            this.shipPictureBoxes.Add(this.ship3aPictureBox);
+            this.shipPictureBoxes.Add(this.ship3bPictureBox);
+            this.shipPictureBoxes.Add(this.ship4PictureBox);
+            this.shipPictureBoxes.Add(this.ship5PictureBox);
+        }
+
     }
 
     public partial class GridButton : System.Windows.Forms.Button
