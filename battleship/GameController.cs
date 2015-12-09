@@ -43,6 +43,10 @@ namespace battleship
         {
             player = newPlayer;
         }
+        public void setPlayerTurn(int pt)
+        {
+            playerTurn = pt;
+        }
         public void passTurn()
         {
             playerTurn++;
