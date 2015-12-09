@@ -85,7 +85,7 @@
             // if(shotSquare.State.empty)
             // ^^ Getting an error
             // This might work better - Nino
-            if(shotSquare.getSquareState() == State.empty)
+            if(shotSquare.getSquareState() != State.hit && shotSquare.getSquareState() != State.miss)
             {
                 Shot newShot = new Shot(shotSquare);
                 //sendShot(newShot);
