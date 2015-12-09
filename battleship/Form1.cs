@@ -238,6 +238,7 @@ namespace battleship
                             {
                                 selectedShip.Position[i].setXLoc(clickedSquare.XLoc + i);
                                 selectedShip.Position[i].setYLoc(clickedSquare.YLoc);
+                                selectedShip.Placed = true;
                             }
                         }
                         else
@@ -246,6 +247,7 @@ namespace battleship
                             {
                                 selectedShip.Position[i].setXLoc(clickedSquare.XLoc);
                                 selectedShip.Position[i].setYLoc(clickedSquare.YLoc + i);
+                                selectedShip.Placed = true;
                             }
                         }
 
@@ -261,7 +263,7 @@ namespace battleship
                                 }
                                 else
                                 {
-                                    ship2PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship2vertPictureBox.BackgroundImage")));
+                                    ship2PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship1-vert")));
                                     ship2PlacedPictureBox.Size = new System.Drawing.Size(36, 70);
                                 }
                                 break;
@@ -275,7 +277,7 @@ namespace battleship
                                 }
                                 else
                                 {
-                                    ship3aPlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship3avertPictureBox.BackgroundImage")));
+                                    ship3aPlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship2-vert")));
                                     ship3aPlacedPictureBox.Size = new System.Drawing.Size(36, 104);
                                 }
                                 break;
@@ -289,7 +291,7 @@ namespace battleship
                                 }
                                 else
                                 {
-                                    ship3bPlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship3bvertPictureBox.BackgroundImage")));
+                                    ship3bPlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship3-vert")));
                                     ship3bPlacedPictureBox.Size = new System.Drawing.Size(36, 104);
                                 }
                                 break;
@@ -303,7 +305,7 @@ namespace battleship
                                 }
                                 else
                                 {
-                                    ship4PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship4vertPictureBox.BackgroundImage")));
+                                    ship4PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship4-vert")));
                                     ship4PlacedPictureBox.Size = new System.Drawing.Size(36, 140);
                                 }
                                 break;
@@ -317,13 +319,35 @@ namespace battleship
                                 }
                                 else
                                 {
-                                    ship5PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship5vertPictureBox.BackgroundImage")));
+                                    ship5PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship5-vert")));
                                     ship5PlacedPictureBox.Size = new System.Drawing.Size(36, 174);
                                 }
                                 break;
                         }
+                        checkCanStart();
                     }
                     break;
+            }
+        }
+
+        public void checkCanStart()
+        {
+            var allPlaced = true;
+            foreach(Ship ship in controller.getPlayer().getShips())
+            {
+                if (!ship.Placed)
+                {
+                    allPlaced = false;
+                }
+            }
+
+            if (allPlaced)
+            {
+                startButton.Enabled = true;
+            }
+            else
+            {
+                startButton.Enabled = false;
             }
         }
 
@@ -551,6 +575,10 @@ namespace battleship
             return fits;
         }
 
+        private void startButton_Click(object sender, EventArgs e)
+        {
+            //Put code to start the game here
+        }
     }
 
     public partial class GridButton : System.Windows.Forms.Button

@@ -104,7 +104,8 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\ship2vertPictureBox.BackgroundImage.bmp" />
+    <None Include="Resources\ship2-vert.png" />
+    <Content Include="Resources\ship2vertPictureBox.BackgroundImage.bmp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="images\ship2vert.png" />
@@ -126,9 +127,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ship1-vert.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ship2-vert.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ship3-vert.png" />
