@@ -104,6 +104,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\ship2-vert.png" />
     <Content Include="Resources\ship2vertPictureBox.BackgroundImage.bmp" />
   </ItemGroup>
   <ItemGroup>

@@ -248,7 +248,7 @@ namespace battleship
                                 }
                                 else
                                 {
-                                    ship2PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship2vertPictureBox.BackgroundImage")));
+                                    ship2PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship1-vert")));
                                     ship2PlacedPictureBox.Size = new System.Drawing.Size(36, 70);
                                 }
                                 break;
@@ -262,7 +262,7 @@ namespace battleship
                                 }
                                 else
                                 {
-                                    ship3aPlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship3avertPictureBox.BackgroundImage")));
+                                    ship3aPlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship2-vert")));
                                     ship3aPlacedPictureBox.Size = new System.Drawing.Size(36, 104);
                                 }
                                 break;
@@ -276,7 +276,7 @@ namespace battleship
                                 }
                                 else
                                 {
-                                    ship3bPlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship3bvertPictureBox.BackgroundImage")));
+                                    ship3bPlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship3-vert")));
                                     ship3bPlacedPictureBox.Size = new System.Drawing.Size(36, 104);
                                 }
                                 break;
@@ -290,7 +290,7 @@ namespace battleship
                                 }
                                 else
                                 {
-                                    ship4PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship4vertPictureBox.BackgroundImage")));
+                                    ship4PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship4-vert")));
                                     ship4PlacedPictureBox.Size = new System.Drawing.Size(36, 140);
                                 }
                                 break;
@@ -304,7 +304,7 @@ namespace battleship
                                 }
                                 else
                                 {
-                                    ship5PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship5vertPictureBox.BackgroundImage")));
+                                    ship5PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship5-vert")));
                                     ship5PlacedPictureBox.Size = new System.Drawing.Size(36, 174);
                                 }
                                 break;
