@@ -75,6 +75,19 @@ namespace battleship
             singlePlayerMode();
         }
 
+        void resetUI() {
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    playerGridButtons[i][j].BringToFront();
+                    enemyGridButtons[i][j].BringToFront();
+                    Board.resetBoard();                    
+                }
+
+            }
+        }
+
         void playerGridButton_MouseEnter(Object sender, EventArgs e)
         {
             var enteredSquare = sender as GridButton;

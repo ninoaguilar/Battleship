@@ -52,6 +52,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="GameboardTest.cs" />
     <Compile Include="GameControllerText.cs" />
     <Compile Include="ObjectTests.cs" />
     <Compile Include="UnitTest1.cs" />
