@@ -116,7 +116,7 @@ namespace battleship
             // startScreen
             // 
             this.startScreen.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("startScreen.BackgroundImage")));
-            this.startScreen.Location = new System.Drawing.Point(-8, 0);
+            this.startScreen.Location = new System.Drawing.Point(-2, -1);
             this.startScreen.Name = "startScreen";
             this.startScreen.Size = new System.Drawing.Size(1100, 700);
             this.startScreen.TabIndex = 249;
@@ -663,9 +663,9 @@ namespace battleship
             this.playerScoreLabel.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.playerScoreLabel.Location = new System.Drawing.Point(166, 493);
             this.playerScoreLabel.Name = "playerScoreLabel";
-            this.playerScoreLabel.Size = new System.Drawing.Size(114, 25);
+            this.playerScoreLabel.Size = new System.Drawing.Size(160, 25);
             this.playerScoreLabel.TabIndex = 292;
-            this.playerScoreLabel.Text = "Score: 0/16";
+            this.playerScoreLabel.Text = "Your Score: 0/17";
             // 
             // label42
             // 
@@ -675,9 +675,9 @@ namespace battleship
             this.label42.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label42.Location = new System.Drawing.Point(768, 493);
             this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(114, 25);
+            this.label42.Size = new System.Drawing.Size(180, 25);
             this.label42.TabIndex = 293;
-            this.label42.Text = "Score: 0/16";
+            this.label42.Text = "Enemy Score: 0/17";
             // 
             // turnLabel
             // 

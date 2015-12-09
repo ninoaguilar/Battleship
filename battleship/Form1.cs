@@ -18,6 +18,11 @@ namespace battleship
         GridButton[][] playerGridButtons = new GridButton[10][];
         GridButton[][] enemyGridButtons = new GridButton[10][];
         GameController controller = new GameController();
+        AIPlayer computer = new AIPlayer();
+        bool canPlaceShips = true;
+        int playerScore = 0;
+        int compScore = 0;
+        bool restarting = false;
 
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
 
@@ -61,11 +66,19 @@ namespace battleship
                 {
                     setGridButtonAttributes(i, j, horizontalLoc, verticalLoc, ref playerGridButtons);
                     setGridButtonAttributes(i, j, horizontalLoc + 584, verticalLoc, ref enemyGridButtons);
+                    enemyGridButtons[i][j].XLoc=j;
+                    enemyGridButtons[i][j].YLoc = i;
+                    playerGridButtons[i][j].Text = playerGridButtons[i][j].XLoc + ", " + playerGridButtons[i][j].YLoc;
+                    enemyGridButtons[i][j].Text = enemyGridButtons[i][j].XLoc + ", " + enemyGridButtons[i][j].YLoc;
                     playerGridButtons[i][j].MouseUp += new MouseEventHandler(playerGridButton_Click);
                     playerGridButtons[i][j].MouseEnter += new EventHandler(playerGridButton_MouseEnter);
                     playerGridButtons[i][j].MouseLeave += new EventHandler(playerGridButton_MouseLeave);
+                    enemyGridButtons[i][j].MouseUp += new MouseEventHandler(enemyGridButton_Click);
+    //                enemyGridButtons[i][j].MouseEnter += new EventHandler(enemyGridButton_MouseEnter);
+    //                enemyGridButtons[i][j].MouseLeave += new EventHandler(enemyGridButton_MouseLeave);
                     this.Controls.Add(playerGridButtons[i][j]);
                     this.Controls.Add(enemyGridButtons[i][j]);
+                    controller.setPlayerTurn(0);
                     horizontalLoc += 37;
                 }
                 horizontalLoc = 49;
@@ -80,9 +93,26 @@ namespace battleship
             {
                 for (int j = 0; j < 10; j++)
                 {
+                    startButton.Text = "Start Game";
+                    turnLabel.Text = "Arrange Your Ships";
                     playerGridButtons[i][j].BringToFront();
+                    enemyGridButtons[i][j].BackColor = Color.Transparent;
                     enemyGridButtons[i][j].BringToFront();
-                    Board.resetBoard();                    
+                    playerScore = 0;
+                    playerScoreLabel.Text = "Your Score: " + playerScore + "/17";
+                    compScore = 0;
+                    label42.Text = "Enemy Score: " + compScore + "/17";
+                    canPlaceShips = true;
+                    restarting = false;
+                    controller.setPlayerTurn(0);
+                    this.ship2PictureBox.Visible = true;
+                    this.ship3aPictureBox.Visible = true;
+                    this.ship3bPictureBox.Visible = true;
+                    this.ship4PictureBox.Visible = true;
+                    this.ship5PictureBox.Visible = true;
+                    computer = new AIPlayer();
+                    Board.resetBoard();
+                    singlePlayerMode();             
                 }
 
             }
@@ -319,12 +349,16 @@ namespace battleship
                                 }
                                 else
                                 {
-                                    ship5PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship5-vert")));
+                                    ship5PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Resources/ship5-vert")));
                                     ship5PlacedPictureBox.Size = new System.Drawing.Size(36, 174);
                                 }
                                 break;
                         }
                         checkCanStart();
+                    }
+                    else
+                    {
+
                     }
                     break;
             }
@@ -411,8 +445,7 @@ namespace battleship
 
         public void singlePlayerMode()
         {
-            Random rand = new Random();
-            AIPlayer computer = new AIPlayer();         
+            Random rand = new Random();       
 
             foreach(Ship selectedShip in computer.getShips())
             {
@@ -467,9 +500,17 @@ namespace battleship
                         }
                     }
                 }
+                for(int i = 0; i < 10; i++)
+                {
+                    for (int j = 0; j < 10; j++)
+                    {
+
+                        enemyGridButtons[i][j].BackColor = Color.Transparent;
+                    }
+                }
 
                 // Turned on to see Ships after placement. Delete code for final project
-                switch (selectedShip.Name)
+             /*   switch (selectedShip.Name)
                 {
                     case ShipName.patrol:
                         ship2PlacedPictureBox.Visible = true;
@@ -542,6 +583,7 @@ namespace battleship
                         }
                         break;
                 }
+                */
             }
         }
 
@@ -577,9 +619,142 @@ namespace battleship
 
         private void startButton_Click(object sender, EventArgs e)
         {
-            //Put code to start the game here
+            if (restarting)
+            {
+                resetUI();
+            }
+            else
+            {
+                //Put code to start the game here
+                canPlaceShips = false;
+                selectedShip = null;
+                this.ship2PictureBox.Visible = false;
+                this.ship3aPictureBox.Visible = false;
+                this.ship3bPictureBox.Visible = false;
+                this.ship4PictureBox.Visible = false;
+                this.ship5PictureBox.Visible = false;
+                startButton.Visible = false;
+                controller.setPlayerTurn(1);
+                turnLabel.Text = "Make a shot.";
+            }
         }
+
+        
+
+        void enemyGridButton_Click(Object sender, MouseEventArgs e)
+        {
+            if (controller.getPlayerTurn() == 1)
+            {
+                var clickedSquare = sender as GridButton;
+                switch (e.Button)
+                {
+                    case MouseButtons.Left:
+                        int shotX = clickedSquare.XLoc;
+                        int shotY = clickedSquare.YLoc;
+                        shotResolution(shotX, shotY, computer);
+                        enemyAttack();
+                        break;
+                }
+            }
+        }
+
+        void enemyAttack()
+        {
+
+        }
+
+        void shotResolution(int sx, int sy, Player target)
+        {
+            bool hit = false;
+            for(int shipnum = 0; shipnum < 5; shipnum++)
+            {
+                for(int ss = 0; ss < target.getShips()[shipnum].Length; ss++)
+                {
+                    if(sx==target.getShips()[shipnum].Position[ss].getXLoc()&& sy == target.getShips()[shipnum].Position[ss].getYLoc())
+                    {
+                        //hit
+                        hit = true;
+                        if (target == computer)
+                        {
+                            turnLabel.Text = "Hit on enemy!";
+                            playerScore++;
+                            playerScoreLabel.Text = "Your Score: " + playerScore + "/17";
+                            enemyGridButtons[sy][sx].BackColor = Color.Red;
+                        }
+                        else
+                        {
+                            turnLabel.Text = "Enemy hit you!";
+                            compScore++;
+                            label42.Text = "Enemy Score: " + compScore + "/17";
+                            playerGridButtons[sy][sx].BackColor = Color.Red;
+                        }
+                        target.getShips()[shipnum].Position[ss].setState(0);
+                        int hitcount = 0;
+                        for(int i = 0; i < target.getShips()[shipnum].Length; i++)
+                        {
+                            if (target.getShips()[shipnum].Position[i].getSquareState() == 0)
+                            {
+                                hitcount++;
+                            }
+                        }
+                        if (hitcount == target.getShips()[shipnum].Length)
+                        {
+                            target.getShips()[shipnum].IsSunk = true;
+                            if (target == computer)
+                            {
+                                turnLabel.Text = "Enemy ship sunk!";
+                            }
+                            else
+                            {
+                                turnLabel.Text = "Your ship has sunk!";
+                            }
+                        }
+                        if (playerScore > 16)
+                        {
+                            GameOver(true);
+                        }
+                        else if(compScore > 16)
+                        {
+                            GameOver(false);
+                        }
+                    }
+                }
+            }
+            if (!hit)
+            {
+                if (target == computer)
+                {
+                    turnLabel.Text = "You Missed!";
+                    enemyGridButtons[sy][sx].BackColor = Color.White;
+                }
+                else
+                {
+                    turnLabel.Text = "Enemy Missed!";
+                    playerGridButtons[sy][sx].BackColor = Color.White;
+                }
+            }
+        }
+
+        void GameOver(bool playerWon)
+        {
+            
+            restarting = true;
+            if (playerWon)
+            {
+                turnLabel.Text = "CONGRATULATION!  A WINNER IS YOU!";
+                startButton.Text = "Awesome";
+            }
+            else
+            {
+                turnLabel.Text = "YOU LOSE, LOSER!";
+                startButton.Text = "That sucks";
+            }
+            startButton.Visible = true;
+        }
+                
     }
+
+    
 
     public partial class GridButton : System.Windows.Forms.Button
     {
