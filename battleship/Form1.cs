@@ -223,6 +223,7 @@ namespace battleship
                             {
                                 selectedShip.Position[i].setXLoc(clickedSquare.XLoc + i);
                                 selectedShip.Position[i].setYLoc(clickedSquare.YLoc);
+                                selectedShip.Placed = true;
                             }
                         }
                         else
@@ -231,6 +232,7 @@ namespace battleship
                             {
                                 selectedShip.Position[i].setXLoc(clickedSquare.XLoc);
                                 selectedShip.Position[i].setYLoc(clickedSquare.YLoc + i);
+                                selectedShip.Placed = true;
                             }
                         }
 
@@ -307,8 +309,30 @@ namespace battleship
                                 }
                                 break;
                         }
+                        checkCanStart();
                     }
                     break;
+            }
+        }
+
+        public void checkCanStart()
+        {
+            var allPlaced = true;
+            foreach(Ship ship in controller.getPlayer().getShips())
+            {
+                if (!ship.Placed)
+                {
+                    allPlaced = false;
+                }
+            }
+
+            if (allPlaced)
+            {
+                startButton.Enabled = true;
+            }
+            else
+            {
+                startButton.Enabled = false;
             }
         }
 
@@ -370,6 +394,10 @@ namespace battleship
             this.shipPictureBoxes.Add(this.ship5PictureBox);
         }
 
+        private void startButton_Click(object sender, EventArgs e)
+        {
+            //Put code to start the game here
+        }
     }
 
     public partial class GridButton : System.Windows.Forms.Button

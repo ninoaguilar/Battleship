@@ -88,6 +88,7 @@ namespace battleship
             this.ship3bPlacedPictureBox = new System.Windows.Forms.PictureBox();
             this.ship4PlacedPictureBox = new System.Windows.Forms.PictureBox();
             this.ship5PlacedPictureBox = new System.Windows.Forms.PictureBox();
+            this.startButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.startScreen)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ship2PictureBox)).BeginInit();
@@ -95,6 +96,11 @@ namespace battleship
             ((System.ComponentModel.ISupportInitialize)(this.ship3bPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ship4PictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ship5PictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ship2PlacedPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ship3aPlacedPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ship3bPlacedPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ship4PlacedPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ship5PlacedPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox2
@@ -110,7 +116,7 @@ namespace battleship
             // startScreen
             // 
             this.startScreen.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("startScreen.BackgroundImage")));
-            this.startScreen.Location = new System.Drawing.Point(0, 0);
+            this.startScreen.Location = new System.Drawing.Point(-8, 0);
             this.startScreen.Name = "startScreen";
             this.startScreen.Size = new System.Drawing.Size(1100, 700);
             this.startScreen.TabIndex = 249;
@@ -746,7 +752,7 @@ namespace battleship
             // ship2PlacedPictureBox
             // 
             this.ship2PlacedPictureBox.BackColor = System.Drawing.Color.Transparent;
-            this.ship2PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship2PictureBox.BackgroundImage")));
+            this.ship2PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship2PlacedPictureBox.BackgroundImage")));
             this.ship2PlacedPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ship2PlacedPictureBox.Location = new System.Drawing.Point(23, 526);
             this.ship2PlacedPictureBox.Name = "ship2PlacedPictureBox";
@@ -757,7 +763,7 @@ namespace battleship
             // ship3aPlacedPictureBox
             // 
             this.ship3aPlacedPictureBox.BackColor = System.Drawing.Color.Transparent;
-            this.ship3aPlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship3aPictureBox.BackgroundImage")));
+            this.ship3aPlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship3aPlacedPictureBox.BackgroundImage")));
             this.ship3aPlacedPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ship3aPlacedPictureBox.Location = new System.Drawing.Point(132, 526);
             this.ship3aPlacedPictureBox.Name = "ship3aPlacedPictureBox";
@@ -768,7 +774,7 @@ namespace battleship
             // ship3bPlacedPictureBox
             // 
             this.ship3bPlacedPictureBox.BackColor = System.Drawing.Color.Transparent;
-            this.ship3bPlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship3bPictureBox.BackgroundImage")));
+            this.ship3bPlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship3bPlacedPictureBox.BackgroundImage")));
             this.ship3bPlacedPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ship3bPlacedPictureBox.Location = new System.Drawing.Point(23, 579);
             this.ship3bPlacedPictureBox.Name = "ship3bPlacedPictureBox";
@@ -779,7 +785,7 @@ namespace battleship
             // ship4PlacedPictureBox
             // 
             this.ship4PlacedPictureBox.BackColor = System.Drawing.Color.Transparent;
-            this.ship4PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship4PictureBox.BackgroundImage")));
+            this.ship4PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship4PlacedPictureBox.BackgroundImage")));
             this.ship4PlacedPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ship4PlacedPictureBox.Location = new System.Drawing.Point(317, 526);
             this.ship4PlacedPictureBox.Name = "ship4PlacedPictureBox";
@@ -790,13 +796,27 @@ namespace battleship
             // ship5PlacedPictureBox
             // 
             this.ship5PlacedPictureBox.BackColor = System.Drawing.Color.Transparent;
-            this.ship5PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship5PictureBox.BackgroundImage")));
+            this.ship5PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship5PlacedPictureBox.BackgroundImage")));
             this.ship5PlacedPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ship5PlacedPictureBox.Location = new System.Drawing.Point(187, 579);
             this.ship5PlacedPictureBox.Name = "ship5PlacedPictureBox";
             this.ship5PlacedPictureBox.Size = new System.Drawing.Size(185, 35);
             this.ship5PlacedPictureBox.TabIndex = 301;
             this.ship5PlacedPictureBox.TabStop = false;
+            // 
+            // startButton
+            // 
+            this.startButton.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.startButton.Enabled = false;
+            this.startButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.startButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.startButton.Location = new System.Drawing.Point(460, 303);
+            this.startButton.Name = "startButton";
+            this.startButton.Size = new System.Drawing.Size(118, 52);
+            this.startButton.TabIndex = 302;
+            this.startButton.Text = "Start Game";
+            this.startButton.UseVisualStyleBackColor = false;
+            this.startButton.Click += new System.EventHandler(this.startButton_Click);
             // 
             // Form1
             // 
@@ -861,7 +881,8 @@ namespace battleship
             this.Controls.Add(this.ship3bPlacedPictureBox);
             this.Controls.Add(this.ship3aPlacedPictureBox);
             this.Controls.Add(this.ship2PlacedPictureBox);
-
+            this.Controls.Add(this.startButton);
+            this.DoubleBuffered = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form1";
@@ -874,6 +895,11 @@ namespace battleship
             ((System.ComponentModel.ISupportInitialize)(this.ship3bPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ship4PictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ship5PictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ship2PlacedPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ship3aPlacedPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ship3bPlacedPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ship4PlacedPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ship5PlacedPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -942,6 +968,7 @@ namespace battleship
         private Ship selectedShip;
         private bool placeable = true;
         private bool horizontal = true;
+        private Button startButton;
     }
 }
 
