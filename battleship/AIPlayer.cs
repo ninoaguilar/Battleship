@@ -13,17 +13,77 @@ namespace battleship
         private bool shipHit;
         private bool shipSunk;
         private bool horizontal;
+        public List<Square> knownTargets;
 
         public AIPlayer() : base()
         {
             this.Name = "Computer";
+            knownTargets = new List<Square>();
             shipHit = false;
             shipSunk = false;
             hitXLoc = 0;
             hitYLoc = 0;
+            firedOn = new bool[10, 10];
            
         }
+        public Square makeRandomTarget()
+        {
+            Random r = new Random();
+            Square target = new Square();
+            bool valid = false;
+            while (!valid)
+            {
+                target.setXLoc(r.Next() % 10);
+                target.setYLoc(r.Next() % 10);
+                if (!firedOn[target.getXLoc(), target.getYLoc()])
+                {
+                    valid = true;
+                }
+            }
+            return target;
+        }
 
+        public Square makeSmartTarget()
+        {
+            Square target = new Square();
+            target.setXLoc(-1);
+            target.setYLoc(-1);
+            bool needSelection = true;
+            while (needSelection&&knownTargets.Count>0)
+            {
+                Random r = new Random();
+                int t = r.Next() % knownTargets.Count();
+                Square known = knownTargets[t];
+                needSelection = false;
+                if (known.getXLoc() > 0 && !firedOn[known.getXLoc() - 1, known.getYLoc()])
+                {
+                    target.setXLoc(known.getXLoc() - 1);
+                    target.setYLoc(known.getYLoc());
+                }
+                else if (known.getXLoc() < 9 && !firedOn[known.getXLoc() + 1, known.getYLoc()])
+                {
+                    target.setXLoc(known.getXLoc() + 1);
+                    target.setYLoc(known.getYLoc());
+                }
+                else if (known.getYLoc() > 0 && !firedOn[known.getXLoc(), known.getYLoc() - 1])
+                {
+                    target.setYLoc(known.getYLoc() - 1);
+                    target.setXLoc(known.getXLoc());
+                }
+                else if (known.getYLoc() < 9 && !firedOn[known.getXLoc(), known.getYLoc() + 1])
+                {
+                    target.setYLoc(known.getYLoc() + 1);
+                    target.setXLoc(known.getXLoc());
+                }
+                else
+                {
+                    knownTargets.RemoveAt(t);
+                    needSelection = true;
+                }
+            }
+            return target; 
+        }
+        
         public void attackEnemy()
         {
             Square attackSquare = new Square();

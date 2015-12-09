@@ -6,6 +6,7 @@
         private string name;
         private Ship[] ships;
         private Gameboard myBoard;
+        public bool[,] firedOn;
         //Grids (Mine, Opp's)
 
         public Player()
@@ -13,6 +14,7 @@
             this.name = "";
             this.ships = new Ship[5] { new Ship(ShipName.patrol), new Ship(ShipName.submarine), new Ship(ShipName.battleship), new Ship(ShipName.destroyer), new Ship(ShipName.carrier)};
             this.myBoard = new Gameboard();
+            firedOn = new bool[10, 10];
         }
 
         public string Name
