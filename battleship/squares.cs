@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace battleship
 {
-    public enum State { hit, miss, empty };
+    public enum State { hit, miss, empty, occupied};
     public class Square
     {
         private int xLoc;              // Square x location

@@ -35,8 +35,13 @@
                 foreach (Square s in col)
                 {
                     s.setState(0);
-                    s.setXLoc(0);
-                    s.setYLoc(0);
+                }
+            }
+            foreach (Square[] col in enemyGrid)
+            {
+                foreach (Square s in col)
+                {
+                    s.setState(State.empty);
                 }
             }
         }

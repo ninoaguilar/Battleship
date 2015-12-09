@@ -14,7 +14,7 @@ namespace battleship
 {
     public partial class Form1 : Form
     {
-        Gameboard Board;
+        Gameboard Board = new Gameboard();
         GridButton[][] playerGridButtons = new GridButton[10][];
         GridButton[][] enemyGridButtons = new GridButton[10][];
         GameController controller = new GameController();
@@ -70,6 +70,21 @@ namespace battleship
                 }
                 horizontalLoc = 49;
                 verticalLoc += 35;
+            }
+
+            singlePlayerMode();
+        }
+
+        void resetUI() {
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    playerGridButtons[i][j].BringToFront();
+                    enemyGridButtons[i][j].BringToFront();
+                    Board.resetBoard();                    
+                }
+
             }
         }
 
@@ -394,6 +409,172 @@ namespace battleship
             this.shipPictureBoxes.Add(this.ship5PictureBox);
         }
 
+        public void singlePlayerMode()
+        {
+            Random rand = new Random();
+            AIPlayer computer = new AIPlayer();         
+
+            foreach(Ship selectedShip in computer.getShips())
+            {
+                GridButton clickedSquare = new GridButton();
+
+                placeable = false;
+                while (!placeable)
+                {
+                    int orientation = rand.Next(1001) % 2;
+                    clickedSquare.XLoc = rand.Next(10);
+                    clickedSquare.YLoc = rand.Next(10);
+
+                    //If orientation == 0 rotate; else don't
+                    if (orientation == 0) horizontal = true;
+                    else horizontal = false;
+
+                    for (int i = 0; i < selectedShip.Length; i++)
+                    {
+                        if (horizontal)
+                        {
+                            if (clickedSquare.XLoc + i < 10 && AIshipFits(clickedSquare.XLoc, clickedSquare.YLoc, selectedShip.Length, computer)) placeable = true;
+                            else placeable = false;
+                        }
+                        else
+                        { 
+                            if (clickedSquare.YLoc + i < 10 && AIshipFits(clickedSquare.XLoc, clickedSquare.YLoc, selectedShip.Length, computer)) placeable = true;
+                            else placeable = false;
+                        }
+                    }
+
+                    if (selectedShip != null && placeable)
+                    {
+                        if (horizontal)
+                        {
+                            for (int i = 0; i < selectedShip.Length; i++)
+                            {
+                                selectedShip.Position[i].setXLoc(clickedSquare.XLoc + i);
+                                selectedShip.Position[i].setYLoc(clickedSquare.YLoc);
+                                Board.enemyGrid[clickedSquare.YLoc][clickedSquare.XLoc + i].setState(State.occupied);
+                                enemyGridButtons[clickedSquare.YLoc][clickedSquare.XLoc + i].BackColor = Color.White; //To see placment. Comment out
+                            }
+                        }
+                        else
+                        {
+                            for (int i = 0; i < selectedShip.Length; i++)
+                            {
+                                selectedShip.Position[i].setXLoc(clickedSquare.XLoc);
+                                selectedShip.Position[i].setYLoc(clickedSquare.YLoc + i);
+                                Board.enemyGrid[clickedSquare.YLoc + i][clickedSquare.XLoc].setState(State.occupied);
+                                enemyGridButtons[clickedSquare.YLoc + i][clickedSquare.XLoc].BackColor = Color.White; //To see placement. Comment out
+                            }
+                        }
+                    }
+                }
+
+                // Turned on to see Ships after placement. Delete code for final project
+                switch (selectedShip.Name)
+                {
+                    case ShipName.patrol:
+                        ship2PlacedPictureBox.Visible = true;
+                        ship2PlacedPictureBox.Location = new Point(634 + selectedShip.Position[0].getXLoc() * 37, 126 + selectedShip.Position[0].getYLoc() * 35);
+                        if (horizontal)
+                        {
+                            ship2PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship2PictureBox.BackgroundImage")));
+                            ship2PlacedPictureBox.Size = new System.Drawing.Size(74, 35);
+                        }
+                        else
+                        {
+                            ship2PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship2vertPictureBox.BackgroundImage")));
+                            ship2PlacedPictureBox.Size = new System.Drawing.Size(36, 70);
+                        }
+                        break;
+                    case ShipName.submarine:
+                        ship3aPlacedPictureBox.Visible = true;
+                        ship3aPlacedPictureBox.Location = new Point(634 + selectedShip.Position[0].getXLoc() * 37, 126 + selectedShip.Position[0].getYLoc() * 35);
+                        if (horizontal)
+                        {
+                            ship3aPlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship3aPictureBox.BackgroundImage")));
+                            ship3aPlacedPictureBox.Size = new System.Drawing.Size(111, 35);
+                        }
+                        else
+                        {
+                            ship3aPlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship3avertPictureBox.BackgroundImage")));
+                            ship3aPlacedPictureBox.Size = new System.Drawing.Size(36, 104);
+                        }
+                        break;
+                    case ShipName.battleship:
+                        ship3bPlacedPictureBox.Visible = true;
+                        ship3bPlacedPictureBox.Location = new Point(634 + selectedShip.Position[0].getXLoc() * 37, 126 + selectedShip.Position[0].getYLoc() * 35);
+                        if (horizontal)
+                        {
+                            ship3bPlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship3bPictureBox.BackgroundImage")));
+                            ship3bPlacedPictureBox.Size = new System.Drawing.Size(111, 35);
+                        }
+                        else
+                        {
+                            ship3bPlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship3bvertPictureBox.BackgroundImage")));
+                            ship3bPlacedPictureBox.Size = new System.Drawing.Size(36, 104);
+                        }
+                        break;
+                    case ShipName.destroyer:
+                        ship4PlacedPictureBox.Visible = true;
+                        ship4PlacedPictureBox.Location = new Point(634 + selectedShip.Position[0].getXLoc() * 37, 126 + selectedShip.Position[0].getYLoc() * 35);
+                        if (horizontal)
+                        {
+                            ship4PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship4PictureBox.BackgroundImage")));
+                            ship4PlacedPictureBox.Size = new System.Drawing.Size(147, 35);
+                        }
+                        else
+                        {
+                            ship4PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship4vertPictureBox.BackgroundImage")));
+                            ship4PlacedPictureBox.Size = new System.Drawing.Size(36, 140);
+                        }
+                        break;
+                    case ShipName.carrier:
+                        ship5PlacedPictureBox.Visible = true;
+                        ship5PlacedPictureBox.Location = new Point(634 + selectedShip.Position[0].getXLoc() * 37, 126 + selectedShip.Position[0].getYLoc() * 35);
+                        if (horizontal)
+                        {
+                            ship5PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship5PictureBox.BackgroundImage")));
+                            ship5PlacedPictureBox.Size = new System.Drawing.Size(185, 35);
+                        }
+                        else
+                        {
+                            ship5PlacedPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ship5vertPictureBox.BackgroundImage")));
+                            ship5PlacedPictureBox.Size = new System.Drawing.Size(36, 174);
+                        }
+                        break;
+                }
+            }
+        }
+
+        bool AIshipFits(int initXLoc, int initYLoc, int selectedShipLength, AIPlayer computer)
+        {
+            bool fits = true;
+
+            foreach (Ship ship in computer.getShips())
+            {
+                for (int i = 0; i < ship.Length; i++)
+                {
+                    for (int j = 0; j < selectedShipLength; j++)
+                    {
+                        if (horizontal)
+                        {
+                            if (ship.Position[i].getXLoc() == initXLoc + j && ship.Position[i].getYLoc() == initYLoc)
+                            {
+                                fits = false;
+                            }
+                        }
+                        else
+                        {
+                            if (ship.Position[i].getXLoc() == initXLoc && ship.Position[i].getYLoc() == initYLoc + j)
+                            {
+                                fits = false;
+                            }
+                        }
+                    }
+                }
+            }
+            return fits;
+        }
+
         private void startButton_Click(object sender, EventArgs e)
         {
             //Put code to start the game here
@@ -430,4 +611,5 @@ namespace battleship
             }
         }
     }
+
 }
