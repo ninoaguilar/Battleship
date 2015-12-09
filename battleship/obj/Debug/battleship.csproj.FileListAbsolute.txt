@@ -14,14 +14,6 @@ C:\Users\Brandt\Google Drive\School\Sem 7\Engineering\Battleship2\battleship\obj
 C:\Users\Brandt\Google Drive\School\Sem 7\Engineering\Battleship2\battleship\obj\Debug\battleship.Form1.resources
 C:\Users\Brandt\Google Drive\School\Sem 7\Engineering\Battleship2\battleship\obj\Debug\battleship.Properties.Resources.resources
 C:\Users\Brandt\Google Drive\School\Sem 7\Engineering\Battleship2\battleship\obj\Debug\battleship.csproj.GenerateResource.Cache
-<<<<<<< HEAD
-C:\Users\Karl\Source\Repos\Battleship-1\battleship\bin\Debug\battleship.exe
-C:\Users\Karl\Source\Repos\Battleship-1\battleship\bin\Debug\battleship.pdb
-C:\Users\Karl\Source\Repos\Battleship-1\battleship\obj\Debug\battleship.csprojResolveAssemblyReference.cache
-C:\Users\Karl\Source\Repos\Battleship-1\battleship\obj\Debug\battleship.Form1.resources
-C:\Users\Karl\Source\Repos\Battleship-1\battleship\obj\Debug\battleship.Properties.Resources.resources
-C:\Users\Karl\Source\Repos\Battleship-1\battleship\obj\Debug\battleship.csproj.GenerateResource.Cache
-=======
 C:\Users\Dad\Source\Repos\Battleship\battleship\bin\Debug\battleship.exe.config
 C:\Users\Dad\Source\Repos\Battleship\battleship\obj\Debug\Interop.WMPLib.dll
 C:\Users\Dad\Source\Repos\Battleship\battleship\obj\Debug\battleship.csproj.ResolveComReference.cache
@@ -33,4 +25,3 @@ C:\Users\Dad\Source\Repos\Battleship\battleship\obj\Debug\battleship.Properties.
 C:\Users\Dad\Source\Repos\Battleship\battleship\obj\Debug\battleship.csproj.GenerateResource.Cache
 C:\Users\Dad\Source\Repos\Battleship\battleship\obj\Debug\battleship.exe
 C:\Users\Dad\Source\Repos\Battleship\battleship\obj\Debug\battleship.pdb
->>>>>>> ef85257caf4c5c1d0065b6b7fdb687e1658c07e7
